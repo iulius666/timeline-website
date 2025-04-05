@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline România</title>
+    <style>
+        /* Stiluri de bază */
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 40px;
+        }
+
+        /* Containerul Cronologiei Verticale */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Linia Verticală Roșie */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: #f05050; /* Roșu pentru linie */
+        }
+
+        /* Containerul elementului din cronologie */
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 30px; /* Spațiu mărit între elemente */
+        }
+
+        /* Poziționare alternantă stânga/dreapta */
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-left: 0;
+            padding-right: 80px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-right: 0;
+            padding-left: 80px;
+            text-align: left; /* Text aliniat la stanga pt elementele din dreapta */
+        }
+
+        /* Punctul Roșu de pe linie */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: white;
+            border: 4px solid #dc3545; /* Roșu pentru marginea punctului */
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -8px;
+        }
+
+         /* Alinieri specifice pt data pe stanga/dreapta */
+         .timeline-item:nth-child(odd) .timeline-date {
+             text-align: right;
+         }
+         .timeline-item:nth-child(even) .timeline-date {
+             text-align: left;
+         }
+         /* Alinieri specifice pt continut pe stanga/dreapta */
+         .timeline-item:nth-child(odd) .timeline-content {
+             text-align: right;
+         }
+         .timeline-item:nth-child(even) .timeline-content {
+              text-align: left;
+         }
+
+
+        /* Stil pentru Dată */
+        .timeline-date {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #c00; /* Roșu pentru dată */
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Stil pentru Cutia de Conținut - Acum Clickabilă */
+        .timeline-content {
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer; /* Indică faptul că se poate da click */
+            transition: background-color 0.2s ease; /* Efect la hover */
+        }
+        .timeline-content:hover {
+            background-color: #f9f9f9; /* Fundal ușor diferit la hover */
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.05em; /* Marime usor redusa pt a face loc */
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0;
+            font-size: 0.9em;
+        }
+
+        /* Stil pentru zona de Detalii Ascunse */
+        .details {
+            display: none; /* Ascuns inițial */
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            font-size: 0.85em;
+            text-align: left; /* Detaliile să fie mereu aliniate la stânga */
+            cursor: default; /* Cursor normal pentru detalii */
+        }
+        .details p {
+           margin-bottom: 8px;
+        }
+        .details p:last-child {
+           margin-bottom: 0;
+        }
+
+        /* Responsive Design - adaptat pt vertical */
+        @media screen and (max-width: 600px) {
+            .timeline::before {
+                left: 20px;
+                transform: translateX(0);
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 15px;
+            }
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0%;
+                text-align: left; /* Aliniere stânga pe mobil */
+                padding-left: 60px;
+                padding-right: 15px;
+            }
+            .timeline-item::before {
+                left: 12px;
+                right: auto;
+            }
+             .timeline-item:nth-child(odd) .timeline-date,
+             .timeline-item:nth-child(even) .timeline-date,
+             .timeline-item:nth-child(odd) .timeline-content,
+             .timeline-item:nth-child(even) .timeline-content {
+                text-align: left; /* Aliniere stânga pe mobil */
+             }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Timeline România</h1>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-date">Sec II î.Hr. - 106 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Romanizarea preliminară</h3>
+                <p>Perioada de influență romană inițială, anterioară cuceririi Daciei.</p>
+            </div>
+            <div class="details">
+                <p>Această etapă precede cucerirea romană propriu-zisă, începând de la primele contacte cu lumea romană.</p>
+                <p>Influențele romane s-au manifestat în: cultura materială (vase, unelte, ceramică, monedă), viața spirituală (folosirea alfabetului latin), viața politică (implicarea lui Burebista în războiul civil de la Roma).</p>
+                <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">101-106 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Războaiele Daco-Romane</h3>
+                <p>Conflicte între Imperiul Roman și Dacia, care au dus la cucerirea romană.</p>
+            </div>
+             <div class="details">
+                <p>Războaiele dintre anii 101-102 și 105-106 d.Hr. au dus la cucerirea Daciei de către împăratul Traian și transformarea acesteia în provincie romană.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">106 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Dacia devine provincie romană</h3>
+                <p>Marchează începutul romanizării propriu-zise în cadrul provinciei.</p>
+            </div>
+             <div class="details">
+                <p>În urma războaielor daco-romane, Dacia este transformată în provincie romană. Începe un amplu proces de colonizare cu elemente romanice și de asimilare a populației autohtone. Factorii romanizării au inclus armata, veteranii, administrația, coloniștii, urbanizarea, economia, dreptul roman și religia.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">106 – 271/275 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Romanizarea propriu-zisă</h3>
+                <p>Romanizare intensivă în timpul stăpânirii romane în Dacia.</p>
+            </div>
+             <div class="details">
+                <p>Perioada în care Dacia a fost sub stăpânire romană directă. Procesul de romanizare a fost intens, influențând limba, cultura și modul de viață al populației dace prin intermediul administrației, armatei, coloniștilor și adoptării limbii latine.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">271/275 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Retragerea Aureliană</h3>
+                <p>Armata și administrația romană se retrag din Dacia; începe romanizarea post-Aureliană.</p>
+            </div>
+             <div class="details">
+                <p>Împăratul Aurelian decide retragerea armatei și administrației romane din Dacia, din motive strategice și economice. O mare parte a populației daco-romane rămâne la nord de Dunăre, continuând procesul de romanizare prin legăturile cu Imperiul Roman de Răsărit și răspândirea creștinismului în limba latină.</p>
+                <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">271/275 - 602 d.Hr.</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Romanizarea post-Aureliană</h3>
+                <p>Continuarea romanizării după retragerea oficială.</p>
+            </div>
+             <div class="details">
+                <p>După retragerea administrației romane, populația daco-romană rămasă la nord de Dunăre continuă procesul de asimilare a culturii și limbii latine. Răspândirea creștinismului (în latină) și contactele continue cu Imperiul Roman (ulterior Bizantin) au contribuit la acest proces, chiar și în contextul migrațiilor.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Sf. Sec VIII - Înc. Sec IX</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Formarea Poporului Român</h3>
+                <p>Etnogeneza poporului român este în mare parte încheiată.</p>
+            </div>
+             <div class="details">
+                <p>Procesul de formare a poporului român (etnogeneza) s-a desfășurat în principal la nord de Dunăre și s-a încheiat în această perioadă, rezultând un popor neolatin distinct.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Sec IX</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Voievodate Românești Timpurii</h3>
+                <p>Voievodatele lui Gelu, Glad și Menumorut menționate în cronici.</p>
+            </div>
+             <div class="details">
+                <p>Cronica lui Anonymus (Gesta Hungarorum) menționează existența în spațiul intracarpatic (viitoarea Transilvanie) a trei formațiuni politice conduse de: Gelu (în centrul Transilvaniei, având centrul probabil la Dăbâca), Glad (în Banat, cu centrul la Cuvin) și Menumorut (în Crișana, cu centrul la Biharea).</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Sec XI</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Voievodate Românești</h3>
+                <p>Voievodatele lui Gyla și Ahtum menționate.</p>
+            </div>
+             <div class="details">
+                <p>Legenda Sfântului Gerard menționează existența în secolul al XI-lea a voievodatelor conduse de Gyla (Gyula) în centrul Transilvaniei și Ahtum în Banat (cu centrul la Morisena). Acestea reflectă continuarea organizării politice locale.</p>
+                <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1247</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Diploma Cavalerilor Ioaniți</h3>
+                <p>Menționează formațiuni politice românești la sud de Carpați.</p>
+            </div>
+            <div class="details">
+                <p>Acordată de regele Ungariei Bela al IV-lea, diploma menționează existența unor formațiuni politice românești în sudul Carpaților: Țara Severinului (incluzând voievodatul lui Litovoi și țara Hațegului), cnezatele lui Ioan și Farcaș (în Oltenia), și voievodatul lui Seneslau (în stânga Oltului, posibil nucleul viitoarei Țări Românești). Diploma atestă o organizare politică și socială avansată.</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1346</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Expansiunea Otomană</h3>
+                <p>Turcii otomani pătrund în Europa.</p>
+            </div>
+             <div class="details">
+                <p>Pătrunderea turcilor în Europa în anul 1346 a marcat începutul unei noi ere de conflicte în Balcani și a reprezentat o amenințare crescândă pentru statele creștine din regiune, inclusiv pentru Țările Române.</p>
+                 <p><em>(Sursa: 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1359</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Mitropolia Țării Românești</h3>
+                <p>Înființată la Curtea de Argeș de către Nicolae Alexandru.</p>
+            </div>
+             <div class="details">
+                <p>Înființarea Mitropoliei Țării Românești la Curtea de Argeș, sub domnia lui Nicolae Alexandru, a fost un pas crucial în consolidarea statului și afirmarea independenței sale ecleziastice față de Patriarhia de la Constantinopol (deși subordonată canonic acesteia).</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1370</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Mitropolia Severinului</h3>
+                <p>Înființată de către Vladislav-Vlaicu.</p>
+            </div>
+             <div class="details">
+                <p>Voievodul Vladislav-Vlaicu înființează o a doua mitropolie în Țara Românească, la Severin, reflectând importanța strategică și religioasă a regiunii.</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1401-1402</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Mitropolia Moldovei</h3>
+                <p>Recunoscută la Suceava.</p>
+            </div>
+            <div class="details">
+                <p>Recunoașterea Mitropoliei Moldovei, cu sediul la Suceava, de către Patriarhia de la Constantinopol, în timpul domniei lui Alexandru cel Bun, a consolidat statutul politic și religios al statului moldovean.</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">Sec XVII</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Începutul „Chestiunii Orientale”</h3>
+                 <p>Apare disputa marilor puteri pentru teritoriile otomane.</p>
+             </div>
+             <div class="details">
+                 <p>„Problema Orientală” reprezintă complexul de probleme internaționale legate de declinul și eventuala împărțire a Imperiului Otoman. Aceasta a început să se manifeste în secolul XVII, implicând în principal Imperiul Habsburgic și Imperiul Țarist, care vizau teritoriile otomane din Europa, inclusiv Principatele Române.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1711</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Tratatul de la Luțk & Bătălia de la Stănilești</h3>
+                <p>Alianța Moldovei cu Rusia; înfrângere; începutul regimului fanariot în Moldova.</p>
+            </div>
+             <div class="details">
+                 <p>Domnul Moldovei, Dimitrie Cantemir, încheie Tratatul de la Luțk cu țarul Rusiei, Petru cel Mare, pentru lupta comună antiotomană. Campania militară comună se încheie cu înfrângerea de la Stănilești (pe Prut). Cantemir se refugiază în Rusia, iar Imperiul Otoman, neavând încredere în domnii pământeni, instaurează regimul fanariot în Moldova.</p>
+                 <p><em>(Sursa: 3.Domnitorii.docx, 2.AutonomiiLocale.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1716</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Regimul Fanariot în Țara Românească</h3>
+                <p>Regimul fanariot este instaurat și în Țara Românească.</p>
+            </div>
+             <div class="details">
+                 <p>După instaurarea în Moldova în 1711, regimul fanariot este extins și în Țara Românească. Domnii erau numiți direct de Poartă din rândul grecilor din cartierul Fanar din Constantinopol, fiind considerați înalți funcționari otomani. Autonomia țării scade considerabil.</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx, 3.Domnitorii.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1718</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Pacea de la Passarowitz</h3>
+                 <p>Tratat ce confirmă pierderi teritoriale; Banatul devine habsburgic.</p>
+             </div>
+             <div class="details">
+                 <p>În urma războiului austro-turc, Pacea de la Passarowitz consfințește anexarea Banatului și a Olteniei (temporar, până în 1739) de către Imperiul Habsburgic. Tratatul reflectă slăbirea Imperiului Otoman și creșterea influenței habsburgice în regiune.</p>
+                  <p><em>(Sursa: 3.Domnitorii.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1769</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Proiect Boieresc Moldovenesc</h3>
+                 <p>Propunere pentru o republică aristocratică în Moldova.</p>
+             </div>
+              <div class="details">
+                 <p>"Partida națională" din Moldova, condusă de mitropolitul Gavril Callimachi, propune instaurarea unei republici aristocratice, condusă de 12 mari boieri, ca alternativă la regimul fanariot. Este unul dintre primele proiecte politice autohtone care vizează reformarea sistemului de guvernare.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1772</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Memoriu Comun Boieresc</h3>
+                 <p>Boierii moldoveni și munteni cer unirea și autonomia la Focșani.</p>
+             </div>
+              <div class="details">
+                 <p>În contextul tratativelor de pace ruso-turce de la Focșani, delegații boierești din Moldova și Țara Românească prezintă un memoriu comun prin care solicită Marilor Puteri revenirea la domniile pământene, respectarea autonomiei și unirea celor două principate sub garanția Austriei, Rusiei și Prusiei.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1821</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Revoluția lui Tudor Vladimirescu</h3>
+                 <p>Revoluție în Țara Românească; programul „Cererile norodului românesc”.</p>
+             </div>
+              <div class="details">
+                 <p>Mișcarea condusă de Tudor Vladimirescu a avut un caracter social și național, urmărind înlăturarea regimului fanariot și limitarea abuzurilor boierești. Programul său, "Cererile norodului românesc", exprima revendicările țării, deși mișcarea a fost în cele din urmă înfrântă.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1822</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Proiectul „Constituției Cărvunarilor”</h3>
+                <p>Proiect de reformă în Moldova, inspirat de mișcarea carbonarilor.</p>
+            </div>
+            <div class="details">
+                <p>Proiectul, elaborat de circa 70 de mici boieri moldoveni în frunte cu Ionică Tăutu, propunea instaurarea unui regim politic bazat pe principiile separării puterilor în stat, respectarea proprietății și a libertăților individuale, limitând puterea domnului. Deși nu a fost aplicat, a marcat o etapă importantă în gândirea politică românească.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">Sept 1822</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Revenirea la Domnii Pământeni</h3>
+                 <p>Sfârșitul regimului fanariot; numirea domnilor Grigore IV Ghica și Ioniță S. Sturdza.</p>
+             </div>
+              <div class="details">
+                 <p>Ca urmare a Revoluției lui Tudor Vladimirescu și a contextului internațional, Imperiul Otoman renunță la regimul fanariot și acceptă numirea unor domni pământeni: Grigore IV Dimitrie Ghica în Țara Românească și Ioniță Sandu Sturdza în Moldova.</p>
+                  <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1828-1834</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Ocupația Rusă</h3>
+                 <p>Principatele Române sub ocupație militară rusă; Regulamentele Organice.</p>
+             </div>
+              <div class="details">
+                 <p>În urma războiului ruso-turc din 1828-1829, Principatele Române intră sub ocupație militară rusă. În această perioadă, sub administrația generalului Pavel Kiseleff, sunt elaborate și introduse Regulamentele Organice (1831 în Țara Românească, 1832 în Moldova), primele acte cu rol de constituție, care au modernizat administrația, justiția și fiscalitatea, dar au consolidat puterea boierilor și influența rusă.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1 Iulie 1866</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Constituția din 1866</h3>
+                 <p>Prima constituție internă modernă a României.</p>
+             </div>
+              <div class="details">
+                 <p>Promulgată de principele Carol I, a fost prima constituție elaborată intern, fără aprobarea Marilor Puteri. Având ca model Constituția belgiană din 1831, introducea principii democratice fundamentale: separarea puterilor în stat (legislativă - Parlament bicameral și Domn; executivă - Domn și Guvern; judecătorească - instanțe), garantarea drepturilor și libertăților cetățenești (cu excepția art. 7 care limita cetățenia pe criterii religioase), monarhia ereditară. A stat la baza funcționării statului român modern până în 1923.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1875</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Redeschiderea Crizei Orientale</h3>
+                 <p>Răscoale antiotomane în Balcani (Bosnia, Herțegovina, Bulgaria).</p>
+             </div>
+             <div class="details">
+                 <p>Izbucnirea unor răscoale în provinciile otomane Bosnia, Herțegovina și ulterior Bulgaria a redeschis „Chestiunea Orientală” și a creat contextul favorabil pentru ca România să acționeze în vederea obținerii independenței de stat față de Imperiul Otoman.</p>
+                  <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1876</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Războaie Balcanice</h3>
+                 <p>Începe războiul sârbo-muntenegreano-otoman.</p>
+            </div>
+            <div class="details">
+                 <p>Serbia și Muntenegru declară război Imperiului Otoman în sprijinul răsculaților din Bosnia și Herțegovina. Acest conflict regional a amplificat tensiunile și a apropiat perspectiva unui război ruso-turc, în care România avea să joace un rol crucial.</p>
+                  <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Oct 1876</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Tratativele de la Livadia</h3>
+                 <p>Negocieri româno-ruse privind tranzitul trupelor rusești.</p>
+            </div>
+            <div class="details">
+                 <p>În contextul iminentului război ruso-turc, au loc negocieri la Livadia (Crimeea) între primul ministru român I.C. Brătianu și cancelarul rus A.M. Gorceakov. Rusia solicita permisiunea de a tranzita teritoriul României cu trupele sale, iar România condiționa acordul de garantarea integrității sale teritoriale.</p>
+                 <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">4 Apr 1877</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Convenția Româno-Rusă</h3>
+                 <p>Acord privind tranzitul trupelor ruse și garantarea integrității României.</p>
+            </div>
+             <div class="details">
+                 <p>Semnată la București, convenția permitea trecerea liberă a armatei ruse pe teritoriul României spre frontul din Balcani. În schimb, Rusia se obliga să respecte drepturile politice ale statului român și să mențină și să apere integritatea teritorială existentă a României. Costurile tranzitului reveneau guvernului român.</p>
+                  <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">9 Mai 1877</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Declarația de Independență</h3>
+                 <p>România își proclamă independența de stat față de Imperiul Otoman.</p>
+            </div>
+            <div class="details">
+                <p>În urma bombardamentelor otomane asupra localităților românești de pe malul Dunării și a începerii războiului ruso-turc, Adunarea Deputaților (la propunerea lui Mihail Kogălniceanu) și apoi Senatul proclamă independența absolută a României, rupând legăturile de vasalitate față de Poarta Otomană.</p>
+                 <p><em>(Sursa: Context din 7.RomaniaSiConcertulEuropean.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">~1878-1879</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Revizuirea Constituției (Art. 7)</h3>
+                 <p>Modificarea articolului privind cetățenia, condiție pentru recunoaștere.</p>
+             </div>
+              <div class="details">
+                 <p>Congresul de Pace de la Berlin (1878) a condiționat recunoașterea independenței României de modificarea articolului 7 din Constituția din 1866, care acorda cetățenia doar creștinilor. Revizuirea din 1879 a eliminat restricțiile religioase pentru obținerea cetățeniei române, permițând și locuitorilor necreștini (în special evrei) să devină cetățeni, deși printr-un proces individual complex.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1884</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Revizuirea Constituției (Regatul)</h3>
+                 <p>Adaptarea constituției la noul statut de Regat al României.</p>
+            </div>
+            <div class="details">
+                 <p>După proclamarea Regatului în 1881, Constituția a fost revizuită în 1884 pentru a include oficial titlul de "Regatul României" și pentru a opera unele modificări legate de sistemul electoral (reducerea numărului de colegii electorale) și organizarea Senatului.</p>
+                  <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1917</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Revizuirea Constituției (Sufragiu/Agrar)</h3>
+                 <p>Promisiuni de reformă electorală și agrară în contextul războiului.</p>
+            </div>
+             <div class="details">
+                 <p>În condițiile dificile ale Primului Război Mondial, aflată sub ocupație parțială și cu guvernul retras la Iași, Parlamentul votează în 1917 modificarea Constituției din 1866 pentru a permite, după război, introducerea votului universal (pentru bărbați) și înfăptuirea unei ample reforme agrare prin exproprierea parțială a marilor moșii. Aceste promisiuni au avut un rol important în menținerea moralului pe front.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">Oct 1918</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Autodeterminarea Transilvaniei</h3>
+                 <p>Declarație de separare de Austro-Ungaria și dreptul la autodeterminare.</p>
+             </div>
+              <div class="details">
+                 <p>În contextul destrămării iminente a Imperiului Austro-Ungar, Comitetul Executiv al Partidului Național Român din Transilvania adoptă la Oradea o declarație prin care afirmă dreptul națiunii române din Transilvania și Ungaria la autodeterminare și respinge orice soluție în cadrul monarhiei dualiste.</p>
+                  <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">18 Oct 1918</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Formarea CNRC</h3>
+                 <p>Înființarea Consiliului Național Român Central la Arad.</p>
+             </div>
+              <div class="details">
+                 <p>Se constituie la Arad Consiliul Național Român Central (CNRC), organul politic unic al românilor din Transilvania, Banat și Ungaria, format din 6 reprezentanți ai Partidului Național Român și 6 ai Partidului Social-Democrat. CNRC preia conducerea politică și administrativă a teritoriilor locuite de români și somează guvernul maghiar să îi cedeze puterea.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1 Dec 1918</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Marea Adunare de la Alba Iulia</h3>
+                 <p>Votarea Unirii Transilvaniei, Banatului, Crișanei și Maramureșului cu România.</p>
+            </div>
+            <div class="details">
+                 <p>Convocată de CNRC, Marea Adunare Națională de la Alba Iulia, la care participă 1228 de delegați aleși și peste 100.000 de români, votează în unanimitate Rezoluția Unirii necondiționate și pentru totdeauna a Transilvaniei, Banatului, Crișanei și Maramureșului cu Regatul României. Rezoluția, citită de Vasile Goldiș, prevedea și principii democratice pentru organizarea noului stat.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">29 Dec 1919</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Ratificarea Legilor Unirii</h3>
+                 <p>Parlamentul României Mari ratifică actele unirii.</p>
+            </div>
+             <div class="details">
+                 <p>Primul Parlament ales prin vot universal al României Mari votează legile care ratifică și consfințesc pe plan intern actele unirii Basarabiei (27 martie 1918), Bucovinei (28 noiembrie 1918) și Transilvaniei, Banatului, Crișanei și Maramureșului (1 decembrie 1918) cu România.</p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1923</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Constituția din 1923</h3>
+                 <p>Legea fundamentală a României Mari, bazată pe cea din 1866.</p>
+            </div>
+            <div class="details">
+                 <p>Adoptată în timpul guvernării liberale, Constituția din 1923 ("Constituția Unirii") a fost o versiune adaptată și completată a celei din 1866, menită să reflecte noua realitate a României Mari. Consacra principiile democratice (separarea puterilor, drepturi și libertăți extinse), votul universal (masculin), și stabilea cadrul juridic pentru funcționarea statului național unitar român. A fost considerată una dintre cele mai democratice constituții europene ale vremii.</p>
+                  <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">30 Ian 1933</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Hitler devine Cancelar</h3>
+                 <p>Adolf Hitler este numit Cancelar al Germaniei.</p>
+             </div>
+             <div class="details">
+                 <p>Numirea lui Adolf Hitler în funcția de cancelar al Germaniei marchează începutul ascensiunii rapide a regimului nazist și sfârșitul Republicii de la Weimar. Acest eveniment a avut consecințe majore asupra politicii europene și mondiale, ducând la instaurarea dictaturii în Germania și, ulterior, la declanșarea celui de-al Doilea Război Mondial.</p>
+                  <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">30 Iun 1934</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>„Noaptea Cuțitelor Lungi”</h3>
+                 <p>Epurare sângeroasă în cadrul Partidului Nazist din Germania.</p>
+            </div>
+            <div class="details">
+                 <p>Reprezintă o serie de asasinate politice orchestrate de Adolf Hitler pentru a-și consolida puterea și a elimina rivalii din interiorul Partidului Nazist, în special liderii organizației paramilitare SA (Sturmabteilung), conduși de Ernst Röhm. Acest eveniment a demonstrat brutalitatea regimului și a eliminat orice opoziție internă semnificativă.</p>
+                  <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1935</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Legile de la Nürnberg</h3>
+                 <p>Legi rasiale antisemite adoptate în Germania Nazistă.</p>
+             </div>
+             <div class="details">
+                 <p>Aceste legi rasiste au definit "cetățenia germană" pe criterii de sânge ("arian"), retrăgând cetățenia evreilor și interzicând căsătoriile sau relațiile între germani și evrei. Ele au reprezentat un pas major în persecuția sistematică a evreilor, privându-i de drepturi fundamentale și izolându-i social.</p>
+                  <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1938</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>„Noaptea de Cristal” (Kristallnacht)</h3>
+                 <p>Pogrom violent anti-evreiesc în Germania Nazistă.</p>
+            </div>
+             <div class="details">
+                 <p>În noaptea de 9 spre 10 noiembrie 1938, a avut loc un val de violențe anti-evreiești orchestrate de stat în Germania și Austria anexată. Au fost vandalizate și distruse sinagogi, magazine și locuințe evreiești, numeroși evrei fiind uciși, răniți sau arestați și trimiși în lagăre de concentrare. A marcat escaladarea persecuției de la discriminare legislativă la violență fizică deschisă.</p>
+                  <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">23 Aug 1944</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Lovitura de Stat Regală</h3>
+                 <p>România iese din alianța cu Axa și se alătură Aliaților; începe ocupația sovietică.</p>
+            </div>
+             <div class="details">
+                 <p>Regele Mihai I, susținut de principalele partide politice (PNL, PNȚ, PSD, PCR), îl înlătură și arestează pe mareșalul Ion Antonescu, scoțând România din alianța cu Germania Nazistă și alăturând-o Coaliției Națiunilor Unite. Acest act a scurtat războiul, dar a fost urmat imediat de pătrunderea masivă a Armatei Roșii pe teritoriul țării, care s-a comportat ca o armată de ocupație, favorizând preluarea puterii de către comuniști.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx, 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">12/13 Sept 1944</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Convenția de Armistițiu</h3>
+                 <p>Acord semnat cu Aliații, impunând condiții grele României.</p>
+            </div>
+            <div class="details">
+                 <p>Semnată la Moscova, Convenția impunea României condiții foarte dure: participarea la războiul anti-german cu cel puțin 12 divizii, plata unor despăgubiri uriașe către URSS (300 milioane dolari), permiterea controlului sovietic asupra economiei și a vieții politice prin Comisia Aliată de Control (dominată de sovietici). Singurul punct favorabil era anularea Dictatului de la Viena și redobândirea nord-vestului Transilvaniei.</p>
+                 <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">9 Oct 1944</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Conferința de la Moscova ("Acordul de procentaj")</h3>
+                 <p>Churchill și Stalin împart sferele de influență; România sub influență sovietică majoritară.</p>
+            </div>
+            <div class="details">
+                 <p>În timpul unei întâlniri la Moscova, premierul britanic Winston Churchill și liderul sovietic Iosif Stalin au convenit neoficial asupra împărțirii influenței în Europa de Est. Conform acestui "acord de procentaj", România intra în sfera de influență sovietică în proporție de 90%, un factor decisiv în procesul ulterior de comunizare a țării.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">25 Oct 1944</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Eliberarea Teritoriului Național</h3>
+                 <p>Ultimele localități românești sunt eliberate de sub ocupația Axei.</p>
+             </div>
+             <div class="details">
+                 <p>După lupte grele duse de armata română alături de cea sovietică, orașele Carei și Satu Mare sunt eliberate, marcând eliberarea completă a teritoriului național de sub ocupația germano-maghiară. Armata română a continuat apoi lupta pe frontul de vest până la sfârșitul războiului.</p>
+                 <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">Feb 1945</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Conferința de la Yalta</h3>
+                 <p>Marile Puteri confirmă divizarea Europei în sfere de influență.</p>
+            </div>
+             <div class="details">
+                 <p>Reuniunea liderilor SUA (Roosevelt), Marii Britanii (Churchill) și URSS (Stalin) a consfințit, printre altele, împărțirea Europei în sfere de influență, acceptând tacit controlul sovietic asupra Europei de Est, inclusiv asupra României. Deciziile de la Yalta au facilitat instaurarea regimurilor comuniste în țările ocupate de Armata Roșie.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">6 Mar 1945</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Guvernul Petru Groza</h3>
+                 <p>Instalarea primului guvern pro-comunist, sub presiune sovietică.</p>
+            </div>
+            <div class="details">
+                 <p>Sub presiunea directă a emisarului sovietic Andrei Vâșinski, Regele Mihai I este forțat să numească un guvern condus de Petru Groza (liderul Frontului Plugarilor, organizație pro-comunistă). Acest guvern, deși includea și reprezentanți ai altor partide, era dominat de comuniști și a început procesul de lichidare a democrației și de instaurare a controlului totalitar asupra societății românești (epurări, reformă agrară cu scop politic etc.).</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">9 Mai 1945</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Ziua Victoriei în Europa</h3>
+                 <p>Capitularea Germaniei Naziste; sfârșitul războiului în Europa.</p>
+            </div>
+            <div class="details">
+                 <p>Germania Nazistă semnează actul de capitulare necondiționată, marcând sfârșitul celui de-al Doilea Război Mondial pe continentul european. România contribuise semnificativ la victoria Aliaților după 23 august 1944, cu mari pierderi umane și materiale.</p>
+                 <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">21 Aug 1945</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Începe „Greva Regală”</h3>
+                 <p>Regele Mihai protestează împotriva guvernului Groza refuzând să semneze acte.</p>
+            </div>
+             <div class="details">
+                 <p>În semn de protest față de abuzurile guvernului Groza și refuzul acestuia de a demisiona conform solicitării Regelui (susținută de SUA și Marea Britanie), Regele Mihai I intră în "grevă regală", refuzând să mai semneze decretele-legi emise de guvern. Conflictul a fost dezamorsat temporar prin includerea formală a unor reprezentanți PNL și PNȚ în guvern, fără ca aceștia să aibă putere reală.</p>
+                  <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1947</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Tratatul de Pace de la Paris</h3>
+                 <p>Stabilește statutul României postbelice; nu i se recunoaște cobeligeranța.</p>
+            </div>
+            <div class="details">
+                 <p>Tratatul încheiat între Puterile Aliate și statele europene foste aliate ale Germaniei (inclusiv România) a confirmat granițele României (anularea Dictatului de la Viena, dar pierderea Basarabiei și Bucovinei de Nord). Deși România luptase alături de Aliați din august 1944, nu i s-a recunoscut statutul de țară cobeligerantă, fiindu-i impuse în continuare despăgubiri de război către URSS și menținerea trupelor sovietice pe teritoriul său.</p>
+                 <p><em>(Sursa: 7.RomaniaSiConcertulEuropean.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1947</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Manualul de Istorie al lui Mihail Roller</h3>
+                 <p>Manual stalinist ce denatura istoria națională, accentuând rolul slavilor.</p>
+            </div>
+            <div class="details">
+                 <p>Publicat în perioada de stalinizare a României, manualul de "Istoria României" coordonat de Mihail Roller (istoric oficial al regimului comunist) a promovat tezele istoriografiei sovietice, minimalizând rolul elementului latin în formarea poporului român și exagerând influența slavă, în conformitate cu interesele politice ale Moscovei.</p>
+                 <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1958</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Retragerea Trupelor Sovietice</h3>
+                 <p>Armata Roșie părăsește teritoriul României.</p>
+             </div>
+             <div class="details">
+                 <p>Retragerea trupelor Armatei Roșii de pe teritoriul României, negociată de conducerea comunistă română (în special Gheorghe Gheorghiu-Dej), a marcat un pas important în direcția unei relative autonomii a României în cadrul blocului sovietic, deși țara a rămas ferm ancorată în sistemul comunist și în Pactul de la Varșovia.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1965</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Constituția din 1965</h3>
+                 <p>Noua constituție proclamă Republica Socialistă România și rolul conducător al PCR.</p>
+             </div>
+              <div class="details">
+                 <p>Adoptată după venirea la putere a lui Nicolae Ceaușescu, această constituție schimba denumirea țării din Republica Populară Română în Republica Socialistă România. Consacra oficial rolul Partidului Comunist Român (PCR) ca "forță politică conducătoare a întregii societăți". Deși garanta formal drepturi și libertăți, acestea erau subordonate intereselor regimului. Stabilea proprietatea socialistă (de stat și cooperatistă) ca bază a economiei, reflectând încheierea colectivizării.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">Feb 1968</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Reorganizare Administrativă</h3>
+                 <p>Modificarea împărțirii administrativ-teritoriale (județe).</p>
+            </div>
+             <div class="details">
+                 <p>O modificare a Constituției din 1965 a dus la reorganizarea administrativ-teritorială a țării, revenindu-se la împărțirea pe județe, în locul regiunilor și raioanelor introduse după model sovietic în 1950.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">28 Mar 1974</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Crearea Funcției Prezidențiale</h3>
+                 <p>Introducerea funcției de Președinte al RSR, ocupată de N. Ceaușescu.</p>
+             </div>
+             <div class="details">
+                 <p>Printr-o nouă modificare a Constituției, a fost introdusă funcția de Președinte al Republicii Socialiste România, ca șef al statului. Nicolae Ceaușescu, deja Secretar General al PCR și Președinte al Consiliului de Stat, a fost ales în această nouă funcție de către Marea Adunare Națională, concentrând astfel și mai multă putere și accentuând cultul personalității.</p>
+                 <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">16 Dec 1989</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Începutul Revoluției</h3>
+                 <p>Proteste anticomuniste izbucnesc la Timișoara.</p>
+             </div>
+            <div class="details">
+                 <p>Revoluția Română a început la Timișoara cu proteste împotriva mutării forțate a pastorului reformat László Tőkés. Manifestațiile s-au transformat rapid într-un protest general anticomunist și anti-Ceaușescu, reprimat violent de forțele de ordine, ceea ce a dus la escaladarea situației în zilele următoare.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">22 Dec 1989</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Prăbușirea Regimului Ceaușescu</h3>
+                 <p>Nicolae Ceaușescu fuge din București; puterea este preluată de FSN.</p>
+             </div>
+             <div class="details">
+                 <p>În urma extinderii protestelor la București și în alte orașe, a confruntărilor violente și a trecerii armatei de partea manifestanților, Nicolae și Elena Ceaușescu părăsesc sediul Comitetului Central cu un elicopter. Puterea este preluată de Frontul Salvării Naționale (FSN), constituit ad-hoc din figuri politice disidente și revoluționari.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">25 Dec 1989</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Execuția Ceaușeștilor</h3>
+                 <p>Nicolae și Elena Ceaușescu sunt judecați sumar și executați.</p>
+             </div>
+             <div class="details">
+                 <p>După ce au fost prinși în apropiere de Târgoviște, Nicolae și Elena Ceaușescu sunt judecați de un tribunal militar excepțional, condamnați la moarte și executați în ziua de Crăciun, eveniment ce a marcat simbolic sfârșitul regimului comunist în România.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">31 Dec 1989</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Permiterea Pluripartidismului</h3>
+                 <p>FSN emite decretul-lege pentru revenirea la sistemul multipartit.</p>
+             </div>
+             <div class="details">
+                 <p>Consiliul Frontului Salvării Naționale (CFSN) emite Decretul-Lege nr. 8 privind înregistrarea și funcționarea partidelor politice, abrogând prevederea constituțională referitoare la rolul conducător al Partidului Comunist și permițând oficial revenirea la pluripartidism. Aceasta a deschis calea pentru reconstrucția democratică a țării, prin reapariția partidelor istorice (PNL, PNȚCD) și înființarea altor noi formațiuni politice.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+            </div>
+        </div>
+
+        </div> <script>
+        function toggleDetails(element) {
+            // Găsește elementul părinte .timeline-item
+            var item = element.closest('.timeline-item');
+            if (item) {
+                // Găsește div-ul .details din interiorul item-ului
+                var detailsDiv = item.querySelector('.details');
+                if (detailsDiv) {
+                    // Comută afișarea
+                    if (detailsDiv.style.display === 'none' || detailsDiv.style.display === '') {
+                        detailsDiv.style.display = 'block';
+                    } else {
+                        detailsDiv.style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

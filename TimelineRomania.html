@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline România</title>
+    <title>History Timeline România</title>
     <style>
+        /* (CSS Rămâne la fel ca în versiunea anterioară verticală, roșie, interactivă) */
         /* Stiluri de bază */
         body {
             font-family: sans-serif;
@@ -146,12 +147,29 @@
             text-align: left; /* Detaliile să fie mereu aliniate la stânga */
             cursor: default; /* Cursor normal pentru detalii */
         }
+        .details h4 { /* Stil pentru subtitluri in detalii */
+            font-size: 1.1em;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #555;
+        }
         .details p {
            margin-bottom: 8px;
+           text-indent: 15px; /* Indentare paragraf */
         }
+         .details p:first-of-type {
+            text-indent: 0; /* Fara indentare la primul paragraf dupa un h4 */
+         }
         .details p:last-child {
            margin-bottom: 0;
         }
+         .details ul {
+             margin-left: 20px;
+             padding-left: 10px;
+         }
+         .details li {
+             margin-bottom: 5px;
+         }
 
         /* Responsive Design - adaptat pt vertical */
         @media screen and (max-width: 600px) {
@@ -187,7 +205,7 @@
 </head>
 <body>
 
-    <h1>Timeline România</h1>
+    <h1>Cronologie Istorică Verticală Interactivă (Finală)</h1>
 
     <div class="timeline">
 
@@ -200,6 +218,7 @@
             <div class="details">
                 <p>Această etapă precede cucerirea romană propriu-zisă, începând de la primele contacte cu lumea romană.</p>
                 <p>Influențele romane s-au manifestat în: cultura materială (vase, unelte, ceramică, monedă), viața spirituală (folosirea alfabetului latin), viața politică (implicarea lui Burebista în războiul civil de la Roma).</p>
+                <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
             </div>
         </div>
 
@@ -270,7 +289,7 @@
                 <p>Etnogeneza poporului român este în mare parte încheiată.</p>
             </div>
              <div class="details">
-                <p>Procesul de formare a poporului român (etnogeneza) s-a desfășurat în principal la nord de Dunăre și s-a încheiat în această perioadă, rezultând un popor neolatin distinct.</p>
+                <p>Procesul de formare a poporului român (etnogeneza) s-a desfășurat, în principal, la nord de Dunăre și s-a încheiat în această perioadă, rezultând un popor neolatin distinct.</p>
                  <p><em>(Sursa: 1.RomanitateaRomanilor.docx)</em></p>
             </div>
         </div>
@@ -290,7 +309,7 @@
         <div class="timeline-item">
             <div class="timeline-date">Sec XI</div>
             <div class="timeline-content" onclick="toggleDetails(this)">
-                <h3>Voievodate Românești</h3>
+                <h3>Voievodate Românești (continuare)</h3>
                 <p>Voievodatele lui Gyla și Ahtum menționate.</p>
             </div>
              <div class="details">
@@ -310,6 +329,19 @@
                  <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
             </div>
         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1330</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Posada</h3>
+                <p>Basarab I învinge pe regele Ungariei, Carol Robert de Anjou.</p>
+             </div>
+             <div class="details">
+                <p>Voievodul Țării Românești, Basarab I, întemeietorul statului, obține o victorie decisivă împotriva oștii regelui Ungariei, Carol Robert de Anjou. Armata maghiară, aflată în retragere după o campanie nereușită, este surprinsă și zdrobită într-o trecătoare îngustă (posibil în zona Loviștei). Această victorie a consfințit independența Țării Românești față de Regatul Ungariei.</p>
+                <p><em>(Sursa: Context istoric legat de întemeierea statelor medievale menționată în 2.AutonomiiLocale.docx; Eveniment solicitat explicit)</em></p>
+             </div>
+        </div>
+
 
         <div class="timeline-item">
             <div class="timeline-date">1346</div>
@@ -348,18 +380,521 @@
         </div>
 
         <div class="timeline-item">
-             <div class="timeline-date">1401-1402</div>
-             <div class="timeline-content" onclick="toggleDetails(this)">
-                <h3>Mitropolia Moldovei</h3>
-                <p>Recunoscută la Suceava.</p>
+            <div class="timeline-date">1386-1418</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Domnia lui Mircea cel Bătrân</h3>
+                <p>Domn al Țării Românești, politică externă activă antiotomană.</p>
             </div>
             <div class="details">
-                <p>Recunoașterea Mitropoliei Moldovei, cu sediul la Suceava, de către Patriarhia de la Constantinopol, în timpul domniei lui Alexandru cel Bun, a consolidat statutul politic și religios al statului moldovean.</p>
-                 <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+                <h4>Acțiuni diplomatice:</h4>
+                    <ul>
+                        <li><strong>Tratatul de la Radom (1389/1390):</strong> Alianță cu regele Poloniei, Vladislav Iagello (prin intermediul lui Petru Mușat al Moldovei), de pe poziții egale, îndreptată împotriva Ungariei.</li>
+                        <li><strong>Tratatul de la Brașov (7 martie 1395):</strong> Prima alianță antiotomană din sud-estul Europei, încheiată cu Sigismund de Luxemburg, regele Ungariei, de pe poziții de egalitate. Prevedea ajutor militar reciproc antiotoman.</li>
+                    </ul>
+                <h4>Acțiuni militare:</h4>
+                    <ul>
+                        <li><strong>Bătălia de la Rovine (17 mai 1395):</strong> Victorie împotriva oștirii otomane conduse de Baiazid I, consolidând neatârnarea Țării Românești.</li>
+                        <li><strong>Cruciada de la Nicopole (1396):</strong> Participă alături de Sigismund de Luxemburg; cruciații sunt învinși.</li>
+                    </ul>
+                <p>Mircea moare în 1418.</p>
+                <p><em>(Sursa: Textul furnizat utilizator)</em></p>
             </div>
         </div>
 
         <div class="timeline-item">
+            <div class="timeline-date">1395 (7 Martie)</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Tratatul de la Brașov</h3>
+                <p>Alianță antiotomană între Mircea cel Bătrân și Sigismund de Luxemburg.</p>
+            </div>
+            <div class="details">
+                <p>Creşterea pericolului otoman l-a determinat pe Mircea cel Bătrân să încheie cu Sigismund de Luxemburg, regele Ungariei, un tratat de alianță antiotomană la Brașov, de pe poziții de egalitate. Tratatul prevedea ajutor militar antiotoman. Este considerat prima alianță antiotomană din sud-estul Europei.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1395 (17 Mai)</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Rovine</h3>
+                <p>Mircea cel Bătrân obține o victorie împotriva lui Baiazid I.</p>
+            </div>
+            <div class="details">
+                <p>În 1395 turcii conduși de Baiazid I au atacat Țara Românească. Turcii au fost atrași apoi într-un loc potrivit, în mlaștina de la Rovine. Românii au obținut o strălucită victorie. Victoria obţinută de Mircea a avut drept consecinţe consolidarea neatârnării Ţării Româneşti.</p>
+                <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1396</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Cruciada de la Nicopole</h3>
+                <p>Mircea cel Bătrân participă la cruciadă; înfrângere creștină.</p>
+            </div>
+            <div class="details">
+                <p>În contextul avansului otoman în Balcani, Papa organizează o cruciadă. Cavalerii occidentali (burgunzi, germani, englezi), conduși de regele Ungariei Sigismund de Luxemburg, participă la Cruciada de la Nicopole. La cruciadă a participat și domnul Țării Românești, Mircea cel Bătrân. Cruciații au fost învinși.</p>
+                <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">~ Sec XIV-XV</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Reglementarea Relațiilor cu Poarta: Capitulațiile</h3>
+                <p>Documente ce stabileau statutul Țărilor Române față de Imperiul Otoman.</p>
+            </div>
+             <div class="details">
+                 <p>Relațiile Țărilor Române cu Imperiul Otoman nu s-au bazat pe cucerire militară completă, ci pe impunerea suzeranității. Aceste relații au fost reglementate prin documente numite „Capitulații” (Ahd-name), tratate încheiate între domnitorii români și sultani. Acestea stipulau, în general:</p>
+                 <ul>
+                     <li>Recunoașterea suzeranității otomane.</li>
+                     <li>Plata unui tribut anual către Poartă.</li>
+                     <li>Obligația de a sprijini militar Imperiul Otoman în anumite condiții.</li>
+                 </ul>
+                 <p>În schimb, Imperiul Otoman se obliga să:</p>
+                 <ul>
+                     <li>Respecte autonomia internă a Țărilor Române (dreptul de a avea domni proprii, legi proprii, administrație proprie).</li>
+                     <li>Apere integritatea teritorială a Țărilor Române împotriva altor dușmani.</li>
+                    <li>Nu intervină în chestiuni religioase (respectarea credinței ortodoxe).</li>
+                </ul>
+                 <p>Existența și conținutul exact al acestor capitulații timpurii sunt uneori dezbătute de istorici.</p>
+                 <p><em>(Sursa: Context din 3.Domnitorii.docx)</em></p>
+             </div>
+         </div>
+
+
+        <div class="timeline-item">
+             <div class="timeline-date">1400-1432</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Domnia lui Alexandru cel Bun</h3>
+                 <p>Domn al Moldovei, recunoașterea Mitropoliei, alianță cu Polonia.</p>
+             </div>
+            <div class="details">
+                <h4>Acțiuni diplomatice:</h4>
+                    <ul>
+                        <li><strong>Tratate de vasalitate cu Polonia (1402, reînnoit 1404, 1407, 1411):</strong> Încheiate cu regele Vladislav Iagello pentru a contracara pretențiile Ungariei și pentru sprijin reciproc (inclusiv împotriva cavalerilor teutoni).</li>
+                        <li><strong>Tratatul de la Lublau (1412):</strong> Tratat între Polonia și Ungaria (Sigismund de Luxemburg) care conținea prevederi pentru împărțirea Moldovei dacă Alexandru nu participa la lupta antiotomană. Nu a fost aplicat, deoarece domnul și-a respectat angajamentele față de suzeran.</li>
+                    </ul>
+                <h4>Acțiuni militare:</h4>
+                    <ul>
+                        <li><strong>Bătăliile de la Grunwald (1410) și Marienburg (1422):</strong> Alexandru cel Bun îl ajută pe regele Poloniei să învingă cavalerii teutoni.</li>
+                    </ul>
+                 <p>În timpul domniei sale a fost recunoscută Mitropolia Moldovei (1401-1402).</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 2.AutonomiiLocale.docx)</em></p>
+            </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1401-1402</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Recunoașterea Mitropoliei Moldovei</h3>
+                <p>Sub Alexandru cel Bun, la Suceava.</p>
+            </div>
+            <div class="details">
+                <p>Recunoașterea Mitropoliei Moldovei, cu sediul la Suceava, de către Patriarhia de la Constantinopol, în timpul domniei lui Alexandru cel Bun, a consolidat statutul politic și religios al statului moldovean.</p>
+                 <p><em>(Sursa: 2.AutonomiiLocale.docx, Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1410 & 1422</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Grunwald & Marienburg</h3>
+                 <p>Alexandru cel Bun sprijină Polonia împotriva cavalerilor teutoni.</p>
+             </div>
+             <div class="details">
+                <p>Ca urmare a tratatelor încheiate cu Polonia, Alexandru cel Bun îl va ajuta pe regele Vladislav Iagello să îi învingă pe cavalerii teutoni în bătăliile de la Grunwald (1410) și Marienburg (1422).</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1441-1456</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Iancu de Hunedoara - Voievod al Transilvaniei</h3>
+                 <p>Promovează un front comun antiotoman; acțiuni militare în Balcani.</p>
+             </div>
+            <div class="details">
+                <p>Ca voievod al Transilvaniei (ulterior guvernator al Ungariei), Iancu de Hunedoara a fost principala figură a luptei antiotomane în Europa Centrală și de Sud-Est.</p>
+                 <h4>Acțiuni diplomatice:</h4>
+                 <p>A fost preocupat de atragerea Țărilor Române în frontul comun antiotoman (politica blocului românesc), susținând diverși domnitori: Vlad Dracul și Vladislav al II-lea în Țara Românească, Petru al II-lea și Bogdan al II-lea în Moldova.</p>
+                 <h4>Acțiuni militare:</h4>
+                    <ul>
+                        <li><strong>Campania cea Lungă (1443-1444):</strong> Organizată cu regele Ungariei și sprijin papal, eliberează Niș și Sofia; încheiată cu Pacea de la Seghedin (1444).</li>
+                        <li><strong>Cruciada de la Varna (1444):</strong> Pacea de la Seghedin este ruptă; creștinii sunt înfrânți, regele Ungariei moare; Iancu devine guvernator al Ungariei.</li>
+                        <li><strong>Cruciada de la Belgrad (1456):</strong> Apără cu succes cetatea Belgradului ("Cheia Europei Centrale") de asaltul sultanului Mahomed al II-lea, oprind înaintarea otomană pentru peste 50 de ani.</li>
+                    </ul>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+         </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1443-1444</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Campania cea Lungă</h3>
+                <p>Iancu de Hunedoara eliberează orașe în Balcani; Pacea de la Seghedin.</p>
+            </div>
+            <div class="details">
+                 <p>În anul 1443, Iancu de Hunedoara împreună cu regele Ungariei și la încurajarea Papei Eugeniu al IV-lea a organizat "Campania cea Lungă", reușind să elibereze orașele Niș și Sofia. La începutul anului 1444 reușește să obțină o victorie decisivă. Campania s-a încheiat prin Pacea de la Seghedin (1444), favorabilă creștinilor.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1444</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Cruciada de la Varna</h3>
+                 <p>Înfrângere creștină; regele Ungariei moare; Iancu devine guvernator.</p>
+            </div>
+            <div class="details">
+                 <p>Profitând de absența armatei otomane (aflată în Asia), regele Ungariei, Vladislav I, împreună cu Iancu, rup Pacea de la Seghedin și organizează Cruciada de la Varna. În noiembrie 1444, creștinii au fost înfrânți, iar regele Ungariei a căzut pe câmpul de luptă. În aceste condiții, Iancu a fost numit guvernator al Ungariei.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1456-1462</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Domnia lui Vlad Țepeș (principală)</h3>
+                 <p>Domn al Țării Românești, cunoscut pentru politica antiotomană și autoritară.</p>
+            </div>
+            <div class="details">
+                 <p>Vlad Țepeș a avut trei domnii (1448; 1456-1462; 1476). Cea mai importantă a fost cea dintre 1456-1462.</p>
+                 <h4>Acțiuni diplomatice:</h4>
+                 <p>În 1460 a încheiat o alianță cu regele Ungariei, Matei Corvin, propunând o colaborare antiotomană.</p>
+                 <h4>Acțiuni militare:</h4>
+                 <p><strong>Campania militară din 1462:</strong> Declanșată de refuzul plății tributului (1459) și alianța cu Ungaria. Sultanul Mahomed al II-lea atacă Țara Românească. În noaptea de 16/17 iunie 1462, Vlad organizează celebrul „atac nocturn” asupra taberei otomane lângă Târgoviște, provocând panică, dar fără a-l asasina pe sultan. Deși un succes european, Mahomed al II-lea continuă spre Târgoviște. Boierii îl părăsesc pe Vlad și îl acceptă ca domn pe fratele său, Radu cel Frumos, supus otomanilor.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1456</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Cruciada de la Belgrad</h3>
+                 <p>Iancu de Hunedoara apără cetatea de asaltul lui Mahomed al II-lea.</p>
+             </div>
+             <div class="details">
+                 <p>În contextul cuceririi Constantinopolului (1453), sultanul Mahomed al II-lea a declanșat o nouă ofensivă asupra Europei centrale, vizând cucerirea Belgradului, considerat „Cheia Europei Centrale”. Iancu de Hunedoara a organizat apărarea cetății. Armata creștină, inferioară numeric, fără experiență și slab echipată, a reușit, printr-un atac surpriză condus de Iancu, să apere cetatea și să-i alunge pe turci. Victoria a oprit înaintarea otomană pentru mai bine de jumătate de secol.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1457-1504</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Domnia lui Ștefan cel Mare</h3>
+                 <p>Cea mai lungă domnie din Moldova; apărător al creștinătății.</p>
+             </div>
+             <div class="details">
+                 <p>Ștefan cel Mare, domn al Moldovei, a avut o domnie îndelungată marcată de numeroase conflicte militare și acțiuni diplomatice menite să apere independența țării.</p>
+                 <h4>Acțiuni diplomatice:</h4>
+                 <ul>
+                     <li><strong>Tratatul de la Overchelăuți (1459):</strong> Tratat de vasalitate cu regele Poloniei, Cazimir al IV-lea, pentru recunoașterea domniei și sprijin militar reciproc. O consecință: îndepărtarea rivalului Petru Aron.</li>
+                     <li><strong>Tratatul de alianță cu Matei Corvin (1475, Iași):</strong> După victoria de la Vaslui, încheie un tratat de sprijin militar reciproc antiotoman cu regele Ungariei, punând capăt tensiunilor anterioare (generate de Bătălia de la Baia, 1467).</li>
+                     <li><strong>Tratatul de la Hârlău (1499):</strong> După înfrângerea regelui polon Ioan Albert la Codrii Cosminului (1497), tratatul stabilește "pacea veșnică" și emanciparea Moldovei de sub suzeranitatea Poloniei.</li>
+                 </ul>
+                 <h4>Acțiuni militare:</h4>
+                 <ul>
+                     <li><strong>Bătălia de la Baia (1467):</strong> Învinge pe regele Ungariei, Matei Corvin (care invadase Moldova ca reacție la cucerirea Chiliei de către Ștefan); marchează ieșirea Moldovei de sub suzeranitatea maghiară.</li>
+                     <li><strong>Bătălia de la Vaslui/Podul Înalt (1475):</strong> Victorie strălucită împotriva unei mari armate otomane conduse de Soliman Pașa, după refuzul plății tributului (1473).</li>
+                     <li><strong>Bătălia de la Războieni/Valea Albă (1476):</strong> Înfrângere în fața armatei otomane conduse personal de sultanul Mahomed al II-lea, dar turcii sunt nevoiți să se retragă.</li>
+                     <li><strong>Bătălia de la Codrii Cosminului (1497):</strong> Învinge armata poloneză condusă de regele Ioan Albert, care încerca să controleze Moldova.</li>
+                 </ul>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1462 (16/17 Iunie)</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Atacul nocturn al lui Vlad Țepeș</h3>
+                 <p>Încercare de asasinare a sultanului Mahomed al II-lea.</p>
+            </div>
+             <div class="details">
+                 <p>În timpul campaniei otomane din 1462, Vlad Țepeș organizează un atac surpriză pe timp de noapte asupra taberei otomane de lângă Târgoviște. Scopul principal era asasinarea sultanului Mahomed al II-lea. Deși ținta nu a fost atinsă, atacul a provocat panică și pierderi în rândul armatei otomane, demonstrând îndrăzneala domnitorului muntean.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1467</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Bătălia de la Baia</h3>
+                 <p>Ștefan cel Mare învinge pe Matei Corvin; Moldova iese de sub suzeranitatea Ungariei.</p>
+            </div>
+            <div class="details">
+                 <p>După ce Ștefan a cucerit Chilia în 1465, afectând interesele comerciale maghiare, regele Ungariei Matei Corvin organizează o expediție militară în Moldova. Armata maghiară este învinsă de Ștefan cel Mare în Bătălia de la Baia. Această confruntare a marcat ieșirea Moldovei de sub suzeranitatea Ungariei.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1475 (Ianuarie)</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Vaslui (Podul Înalt)</h3>
+                <p>Victorie crucială a lui Ștefan cel Mare împotriva otomanilor.</p>
+            </div>
+            <div class="details">
+                <p>După refuzul plății tributului în 1473, sultanul Mahomed al II-lea trimite o expediție condusă de beglerbegul Rumeliei, Soliman Pașa. Ștefan cel Mare, folosind tactica pământului pârjolit și alegând un teren favorabil (mlaștini, ceață), obține o victorie răsunătoare la Vaslui (Podul Înalt) împotriva unei armate superioare numeric. Victoria a avut un ecou european și a apărat temporar independența Moldovei.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1475 (12 Iulie)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Tratat de alianță între Ștefan cel Mare și Matei Corvin</h3>
+                <p>Sprijin militar reciproc antiotoman convenit la Iași.</p>
+             </div>
+             <div class="details">
+                <p>În împrejurările grele ale anului 1475, odată cu victoria de la Vaslui, Ștefan cel Mare a început negocierile pentru încheierea unui tratat de alianță cu Matei Corvin. Tratatul a fost încheiat la 12 iulie 1475, la Iași și prevedea sprijin militar reciproc antiotoman, îndepărtarea oricărui pretendent de la tronul Moldovei sau Regatului Maghiar. La rândul său Moldova oferea libertatea comerțului pentru negustorii unguri. Încheierea acestui tratat a pus capăt stării tensionate dintre cei doi conducători (generată de Bătălia de la Baia, 1467).</p>
+                <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1476</div>
+            <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Războieni (Valea Albă)</h3>
+                <p>Ștefan cel Mare este învins de sultanul Mahomed al II-lea, dar rezistă.</p>
+            </div>
+            <div class="details">
+                <p>Oastea moldoveană condusă de Ștefan cel Mare este învinsă de armata otomană, condusă personal de sultanul Mehmed al II-lea (cuceritorul Constantinopolului). Deși înfrânt în luptă deschisă, Ștefan reușește să se retragă și să hărțuiască armata otomană, care, afectată de lipsuri și boli, este nevoită în cele din urmă să părăsească Moldova fără a o putea supune complet.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1497</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Codrii Cosminului</h3>
+                <p>Ștefan cel Mare învinge armata poloneză condusă de Ioan Albert.</p>
+            </div>
+            <div class="details">
+                 <p>Regele Poloniei, Ioan Albert, având ca obiective controlul asupra Chiliei și Cetății Albe și instalarea unui principe polonez pe tronul Moldovei, organizează o expediție militară în 1497. Armata poloneză suferă o mare înfrângere în fața lui Ștefan cel Mare la Codrii Cosminului (26 octombrie 1497). Conflictul a dus la îmbunătățirea ulterioară a relațiilor moldo-polone, consfințită prin Tratatul de la Hârlău (1499).</p>
+                <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1499</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Tratatul de la Hârlău</h3>
+                 <p>Pace între Moldova (Ștefan cel Mare) și Polonia (Ioan Albert).</p>
+            </div>
+            <div class="details">
+                <p>După înfrângerea polonezilor la Codrii Cosminului (1497), se încheie între Ștefan cel Mare și regele Ioan Albert Tratatul de la Hârlău, care stabilea "pacea veșnică" între cele două state și marca emanciparea Moldovei de sub suzeranitatea Poloniei.</p>
+                <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+
+         <div class="timeline-item">
+             <div class="timeline-date">1593-1601</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Domnia lui Mihai Viteazul</h3>
+                 <p>Domn al Țării Românești, artizanul primei Uniri a Țărilor Române.</p>
+            </div>
+            <div class="details">
+                <p>Domnia lui Mihai Viteazul a fost marcată de lupta antiotomană și de realizarea primei uniri politice a celor trei țări române.</p>
+                 <h4>Acțiuni diplomatice:</h4>
+                <ul>
+                    <li><strong>Aderarea la Liga Sfântă (1594):</strong> Se alătură coaliției antiotomane inițiate de Papă și împăratul Rudolf al II-lea.</li>
+                    <li><strong>Tratatul de la Alba Iulia (20 mai 1595):</strong> Acceptă suzeranitatea principelui Transilvaniei, Sigismund Bathory, în schimbul ajutorului antiotoman.</li>
+                    <li><strong>Tratatul de la Mănăstirea Dealu (1598):</strong> Alianță cu împăratul Rudolf al II-lea, care îi recunoștea domnia ereditară și îi oferea subsidii în schimbul luptei antiotomane și recunoașterii suzeranității imperiale.</li>
+                 </ul>
+                 <h4>Acțiuni militare și Unirea:</h4>
+                 <ul>
+                     <li><strong>Răscoala antiotomană (13 noiembrie 1594):</strong> Atacă garnizoana otomană din București și ucide creditorii levantini.</li>
+                     <li><strong>Bătălia de la Călugăreni (23 august 1595):</strong> Victorie tactică împotriva lui Sinan Pașa.</li>
+                     <li><strong>Eliberarea orașului Giurgiu (Octombrie 1595):</strong> Alungă definitiv otomanii din țară.</li>
+                     <li><strong>Bătălia de la Șelimbăr (Octombrie 1599):</strong> Învinge pe Andrei Bathory; realizează unirea Transilvaniei cu Țara Românească (intră în Alba Iulia la 1 noiembrie 1599).</li>
+                     <li><strong>Cucerirea Moldovei (Mai 1600):</strong> Îl înlătură pe Ieremia Movilă și realizează unirea Moldovei, intitulându-se "Domn a Țării Românești, al Ardealului și a Toată Țara Moldovei".</li>
+                    <li><strong>Bătălia de la Mirăslău (18 septembrie 1600):</strong> Înfrânt de nobilimea maghiară și generalul Basta; pierde Transilvania.</li>
+                    <li><strong>Bătălia de la Guruslău (3 august 1601):</strong> Aliat cu Basta, îl învinge pe Sigismund Bathory, recuperând Transilvania.</li>
+                    <li><strong>Asasinarea (9/19 august 1601):</strong> Ucis pe Câmpia Turzii din ordinul generalului Basta.</li>
+                 </ul>
+                 <p><strong>Importanța Unirii:</strong> Deși efemeră, unirea din 1600 a devenit un ideal național pentru generațiile următoare.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1594 (13 Noiembrie)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Răscoala antiotomană a lui Mihai Viteazul</h3>
+                 <p>Atacarea garnizoanei otomane din București.</p>
+            </div>
+            <div class="details">
+                 <p>În contextul aderării la Liga Sfântă, Mihai Viteazul declanșează o răscoală antiotomană în București, atacând garnizoana otomană staționată acolo și ucigându-i pe creditorii levantini (considerați exponenți ai exploatării otomane). Acest act marchează începutul conflictului deschis cu Imperiul Otoman.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1595 (20 Mai)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Tratatul de la Alba Iulia (Mihai Viteazul)</h3>
+                 <p>Mihai acceptă suzeranitatea lui Sigismund Bathory pentru ajutor antiotoman.</p>
+             </div>
+             <div class="details">
+                 <p>Pericolul otoman l-a determinat pe Mihai Viteazul să se apropie de Sigismund Bathory, principele Transilvaniei. La 20 mai 1595 o delegație de boieri din Țara Românească condusă de Mitropolitul Eftimie a încheiat la Alba Iulia, în numele lui Mihai, un tratat cu Sigismund Bathory, prin care Țara Românească accepta suzeranitatea acestuia în schimbul ajutorului antiotoman și al subordonării Bisericii Ortodoxe din Transilvania față de Mitropolia Țării Românești.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1595 (23 August)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Călugăreni</h3>
+                <p>Victorie tactică a lui Mihai Viteazul împotriva lui Sinan Pașa.</p>
+            </div>
+             <div class="details">
+                 <p>În contextul politicii antiotomane, Imperiul Otoman organizează o campanie de pedepsire. Marele vizir Sinan-Pașa trece Dunărea cu cca. 100.000 de soldați, urmărind transformarea țării în pașalâc. Lupta decisivă se dă la Călugăreni, într-o zonă mlăștinoasă. Mihai obține o mare victorie tactică, dar superioritatea numerică otomană îl obligă să se retragă temporar spre munți, așteptând ajutorul lui Sigismund Bathory.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1595 (Octombrie)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Eliberarea orașului Giurgiu</h3>
+                 <p>Mihai Viteazul, cu sprijin aliat, alungă garnizoana otomană.</p>
+             </div>
+             <div class="details">
+                 <p>După victoria de la Călugăreni și primirea ajutorului de la Sigismund Bathory (aproximativ 23.000 soldați) și Ștefan Răzvan (domnul Moldovei), Mihai Viteazul reia ofensiva. Teritoriul Țării Românești este eliberat. Turcii sunt atacați din nou la Giurgiu și zdrobiți. Sinan-Pașa este silit să se retragă la sud de Dunăre.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">Sec XVI-XVII</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Declinul Autorității Domnești</h3>
+                <p>Creșterea dependenței față de Poartă; numirea domnilor fără consultarea boierilor.</p>
+             </div>
+             <div class="details">
+                 <p>În această perioadă, autoritatea domnitorilor din Țările Române slăbește ca urmare a creșterii dependenței față de Imperiul Otoman. Domnii încep să fie numiți din ce în ce mai des direct de către Poartă, fără consultarea boierimii locale. Apare și se generalizează practica licitării tronului (cumpărarea domniei), ceea ce duce la instabilitate politică și la creșterea presiunii fiscale asupra țării pentru recuperarea sumelor plătite.</p>
+                  <p><em>(Sursa: 2.AutonomiiLocale.docx)</em></p>
+             </div>
+         </div>
+
+
+        <div class="timeline-item">
+             <div class="timeline-date">1598</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Tratatul de la Mănăstirea Dealu</h3>
+                 <p>Alianță între Mihai Viteazul și împăratul Rudolf al II-lea.</p>
+            </div>
+             <div class="details">
+                <p>În iunie 1598, Mihai Viteazul încheie un tratat de alianță cu împăratul habsburgic Rudolf al II-lea, la Mănăstirea Dealu. Prevederi:</p>
+                <ul>
+                    <li>Mihai primea bani pentru înarmarea a 5.000 de soldați pentru lupta antiotomană.</li>
+                    <li>Domnului Țării Românești i se recunoștea domnia ereditară.</li>
+                    <li>Mihai se angaja în lupta antiotomană și recunoștea suzeranitatea împăratului Rudolf al II-lea.</li>
+                 </ul>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1599 (Octombrie)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Șelimbăr & Unirea Transilvaniei</h3>
+                 <p>Mihai Viteazul învinge pe Andrei Bathory și unește Transilvania cu Țara Românească.</p>
+             </div>
+              <div class="details">
+                 <p>Pentru a reface frontul antiotoman și a-și apăra tronul amenințat de Polonia (prin Ieremia Movilă în Moldova) și de noul principe al Transilvaniei, Andrei Bathory (susținut de Polonia), Mihai aplică "planul dacic". În octombrie 1599, în Bătălia de la Șelimbăr, învinge oastea lui Andrei Bathory. Intră triumfător în Alba Iulia (1 noiembrie 1599), iar Dieta Transilvaniei îl recunoaște ca locțiitor imperial (principe).</p>
+                 <p>Măsuri luate în Transilvania: acordarea dreptului de pășunat iobagilor și preoților români, scutirea de robotă a preoților români, întemeierea Mitropoliei Ortodoxe de la Alba Iulia.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1600 (Mai)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Unirea Moldovei</h3>
+                <p>Mihai Viteazul cucerește Moldova și realizează Unirea celor trei țări române.</p>
+             </div>
+              <div class="details">
+                 <p>În mai 1600, Mihai Viteazul trece în Moldova pentru a-l înlătura pe Ieremia Movilă (ostil luptei antiotomane și susținut de Polonia). Moldova este cucerită în câteva săptămâni, cetatea Sucevei deschizându-i porțile. La 27 mai 1600, Mihai se intitula „Domn a Țării Românești, al Ardealului și a Toată Țara Moldovei”, realizând prima unire politică a spațiului românesc.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">1600 (18 Septembrie)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Bătălia de la Mirăslău & Destrămarea Unirii</h3>
+                 <p>Mihai este învins, pierde Transilvania; Movileștii revin în Moldova.</p>
+             </div>
+             <div class="details">
+                 <p>Măsurile luate de Mihai în Transilvania nemulțumesc nobilimea maghiară, care se revoltă. Sprijinită de generalul imperial Gheorghe Basta, nobilimea îl înfrânge pe Mihai la Mirăslău. Consecințe:</p>
+                 <ul>
+                     <li>Mihai pierde Transilvania.</li>
+                     <li>Movileștii revin în Moldova (octombrie 1600).</li>
+                     <li>În Țara Românească este instalat domn Simion Movilă de către polonezi (recunoscut și de turci).</li>
+                 </ul>
+                 <p>Mihai fuge la Praga și Viena, căutând ajutor la împăratul Rudolf al II-lea.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1601 (3 August)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Bătălia de la Guruslău</h3>
+                 <p>Mihai Viteazul și Basta îl înving pe Sigismund Bathory.</p>
+            </div>
+             <div class="details">
+                 <p>Mihai primește ajutor de la împăratul Rudolf al II-lea și se împacă cu generalul Basta. Obiectivul era înlăturarea lui Sigismund Bathory, revenit la conducerea Transilvaniei. Oastea lui Mihai Viteazul și a generalului Basta câștigă Bătălia de la Guruslău. Mihai își recuperează Transilvania și primește o solie din Țara Românească care îi oferă tronul.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+             </div>
+         </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1601 (9/19 August)</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Asasinarea lui Mihai Viteazul</h3>
+                 <p>Domnitorul este ucis pe Câmpia Turzii din ordinul generalului Basta.</p>
+             </div>
+             <div class="details">
+                 <p>Unitatea politică nu a mai putut fi refăcută. La scurt timp după victoria de la Guruslău, Mihai Viteazul este asasinat pe Câmpia Turzii de către mercenari valoni, din ordinul generalului imperial Gheorghe Basta, care vedea în Mihai un potențial rival.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1678-1688</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Domnia lui Șerban Cantacuzino</h3>
+                <p>Domn al Țării Românești, încearcă apropierea de Habsburgi și Rusia.</p>
+             </div>
+             <div class="details">
+                 <p>Într-o perioadă de declin otoman (după eșecul asediului Vienei din 1683), Șerban Cantacuzino a încercat o apropiere diplomatică față de Imperiul Habsburgic în vederea recâștigării independenței. De asemenea, în 1688, a încheiat o alianță cu țarii Rusiei, Ioan și Petru (cel Mare), prin intermediul trimisului său, arhimandritul Ioan, pentru o viitoare acțiune antiotomană, care însă nu a mai avut loc din cauza morții domnitorului.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator)</em></p>
+             </div>
+         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1688-1714</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Domnia lui Constantin Brâncoveanu</h3>
+                 <p>Pace, diplomație abilă, înflorire culturală; executat de otomani.</p>
+             </div>
+             <div class="details">
+                 <p>Domnia lui Constantin Brâncoveanu în Țara Românească a fost caracterizată printr-o lungă perioadă de pace relativă, obținută printr-o politică externă prudentă și o diplomație abilă, menținând autonomia țării în schimbul plății regulate a tributului către Poarta Otomană.</p>
+                 <ul>
+                     <li>După înfrângerea otomanilor la Zenta (1697) și Pacea de la Karlowitz (1699), deși recunoscut domn pe viață de turci, a continuat negocieri secrete antiotomane.</li>
+                     <li>În 1698 a făcut propuneri Rusiei pentru un război antiotoman.</li>
+                    <li>În 1701 a obținut protecția împăratului Leopold de Habsburg.</li>
+                 </ul>
+                 <p>Pe plan intern, a fost o epocă de mare înflorire culturală și artistică (stilul brâncovenesc). Politica sa duală a stârnit mânia sultanului. A fost mazilit și executat prin decapitare la Constantinopol, împreună cu fiii săi, la 15 august 1714.</p>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+            </div>
+        </div>
+
+         <div class="timeline-item">
              <div class="timeline-date">Sec XVII</div>
              <div class="timeline-content" onclick="toggleDetails(this)">
                  <h3>Începutul „Chestiunii Orientale”</h3>
@@ -367,42 +902,55 @@
              </div>
              <div class="details">
                  <p>„Problema Orientală” reprezintă complexul de probleme internaționale legate de declinul și eventuala împărțire a Imperiului Otoman. Aceasta a început să se manifeste în secolul XVII, implicând în principal Imperiul Habsburgic și Imperiul Țarist, care vizau teritoriile otomane din Europa, inclusiv Principatele Române.</p>
-                 <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
+                 <p><em>(Sursa: 4.StatulRomanModern.docx, Textul furnizat utilizator)</em></p>
             </div>
         </div>
 
          <div class="timeline-item">
-             <div class="timeline-date">1711</div>
+             <div class="timeline-date">1710-1711</div>
              <div class="timeline-content" onclick="toggleDetails(this)">
-                <h3>Tratatul de la Luțk & Bătălia de la Stănilești</h3>
-                <p>Alianța Moldovei cu Rusia; înfrângere; începutul regimului fanariot în Moldova.</p>
+                 <h3>Domnia lui Dimitrie Cantemir (Moldova)</h3>
+                 <p>Alianță cu Rusia, înfrângere la Stănilești, refugiu.</p>
+             </div>
+             <div class="details">
+                 <p>Dimitrie Cantemir, erudit și domn al Moldovei, a încercat să scuture jugul otoman printr-o alianță cu Rusia.</p>
+                 <h4>Acțiuni diplomatice:</h4>
+                 <p><strong>Tratatul de la Luțk (1711):</strong> Încheiat cu țarul Rusiei, Petru cel Mare, în vederea luptei comune împotriva Imperiului Otoman.</p>
+                 <h4>Acțiuni militare:</h4>
+                 <p><strong>Bătălia de la Stănilești (1711):</strong> Oastea moldo-rusă este învinsă de cea otomană. Dimitrie Cantemir pierde tronul și se refugiază în Rusia. Consecința majoră a fost neîncrederea Porții în domnii pământeni și instaurarea regimului fanariot în Moldova.</p>
+                  <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx)</em></p>
+             </div>
+         </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">1711 / 1716</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                <h3>Instaurarea Regimului Fanariot</h3>
+                <p>În Moldova (1711) și Țara Românească (1716).</p>
             </div>
              <div class="details">
-                 <p>Domnul Moldovei, Dimitrie Cantemir, încheie Tratatul de la Luțk cu țarul Rusiei, Petru cel Mare, pentru lupta comună antiotomană. Campania militară comună se încheie cu înfrângerea de la Stănilești (pe Prut). Cantemir se refugiază în Rusia, iar Imperiul Otoman, neavând încredere în domnii pământeni, instaurează regimul fanariot în Moldova.</p>
-                 <p><em>(Sursa: 3.Domnitorii.docx, 2.AutonomiiLocale.docx)</em></p>
+                 <p>Ca urmare a neîncrederii Imperiului Otoman în domnii pământeni (evidențiată de alianțele antiotomane ale lui Brâncoveanu și Cantemir), Poarta instaurează regimul fanariot: mai întâi în Moldova (1711, după fuga lui Cantemir), apoi în Țara Românească (1716, după mazilirea lui Ștefan Cantacuzino).</p>
+                 <h4>Caracteristici ale regimului fanariot (Sec XVIII):</h4>
+                 <ul>
+                    <li>Scăderea accentuată a autonomiei Țărilor Române.</li>
+                    <li>Domnii erau numiți direct de Poartă din rândul grecilor bogați din cartierul Fanar (Constantinopol), fiind considerați înalți funcționari otomani (cu rang de pașă cu două tuiuri).</li>
+                    <li>Tronul se obținea prin licitație (plata unor sume mari către Poartă), ducând la domnii scurte și la o fiscalitate excesivă pentru recuperarea banilor.</li>
+                    <li>Obligațiile economice față de Poartă (tribut, mucarer, peșcheșuri) au crescut considerabil.</li>
+                    <li>Armata pământeană a fost redusă la o simplă gardă personală a domnului.</li>
+                    <li>Pierderi teritoriale în favoarea imperiilor vecine (ex: Bucovina - 1775, către Habsburgi).</li>
+                 </ul>
+                 <p><em>(Sursa: Textul furnizat utilizator, 3.Domnitorii.docx, 2.AutonomiiLocale.docx)</em></p>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="timeline-date">1716</div>
-            <div class="timeline-content" onclick="toggleDetails(this)">
-                <h3>Regimul Fanariot în Țara Românească</h3>
-                <p>Regimul fanariot este instaurat și în Țara Românească.</p>
-            </div>
-             <div class="details">
-                 <p>După instaurarea în Moldova în 1711, regimul fanariot este extins și în Țara Românească. Domnii erau numiți direct de Poartă din rândul grecilor din cartierul Fanar din Constantinopol, fiind considerați înalți funcționari otomani. Autonomia țării scade considerabil.</p>
-                 <p><em>(Sursa: 2.AutonomiiLocale.docx, 3.Domnitorii.docx)</em></p>
-             </div>
-        </div>
-
-         <div class="timeline-item">
              <div class="timeline-date">1718</div>
              <div class="timeline-content" onclick="toggleDetails(this)">
                  <h3>Pacea de la Passarowitz</h3>
-                 <p>Tratat ce confirmă pierderi teritoriale; Banatul devine habsburgic.</p>
+                 <p>Tratat ce confirmă pierderi teritoriale; Banatul și Oltenia devin habsburgice.</p>
              </div>
              <div class="details">
-                 <p>În urma războiului austro-turc, Pacea de la Passarowitz consfințește anexarea Banatului și a Olteniei (temporar, până în 1739) de către Imperiul Habsburgic. Tratatul reflectă slăbirea Imperiului Otoman și creșterea influenței habsburgice în regiune.</p>
+                 <p>În urma războiului austro-turc, Pacea de la Passarowitz consfințește anexarea Banatului și a Olteniei (aceasta din urmă temporar, până în 1739) de către Imperiul Habsburgic. Tratatul reflectă slăbirea Imperiului Otoman și creșterea influenței habsburgice în regiune.</p>
                   <p><em>(Sursa: 3.Domnitorii.docx)</em></p>
              </div>
         </div>
@@ -414,7 +962,7 @@
                  <p>Propunere pentru o republică aristocratică în Moldova.</p>
              </div>
               <div class="details">
-                 <p>"Partida națională" din Moldova, condusă de mitropolitul Gavril Callimachi, propune instaurarea unei republici aristocratice, condusă de 12 mari boieri, ca alternativă la regimul fanariot. Este unul dintre primele proiecte politice autohtone care vizează reformarea sistemului de guvernare.</p>
+                 <p>"Partida națională" din Moldova, condusă de mitropolitul Gavril Callimachi, propunea instaurarea unei republici aristocratice, condusă de 12 mari boieri, ca alternativă la regimul fanariot. Este unul dintre primele proiecte politice autohtone care vizează reformarea sistemului de guvernare.</p>
                  <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
              </div>
          </div>
@@ -480,6 +1028,30 @@
         </div>
 
         <div class="timeline-item">
+             <div class="timeline-date">Sec XIX</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Emergența Liberalismului</h3>
+                 <p>Ideologie politică axată pe drepturi individuale și economie de piață.</p>
+            </div>
+             <div class="details">
+                 <p>Liberalismul a apărut ca ideologie în secolul al XIX-lea, susținând drepturile și libertățile individului (exprimare, gândire etc.), separarea puterilor în stat, pluripartidismul, intervenția minimă a statului în economie și, inițial, votul censitar. În România, a fost reprezentat în principal de Partidul Național Liberal (PNL), fiind o doctrină a burgheziei și a proprietarilor de capital.</p>
+                 <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+         </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">Sec XIX</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Emergența Conservatorismului</h3>
+                 <p>Ideologie politică axată pe tradiție, ordine și schimbare graduală.</p>
+             </div>
+             <div class="details">
+                 <p>Conservatorismul, ca reacție la schimbările rapide promovate de liberalism și revoluții, susținea menținerea ordinii sociale tradiționale, respectul pentru instituțiile consacrate (monarhie, biserică), schimbarea socială graduală și protejarea proprietății (în special a celei funciare). În România, a fost reprezentat de Partidul Conservator, având ca bază socială marea boierime.</p>
+                 <p><em>(Sursa: Context din 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
+        <div class="timeline-item">
              <div class="timeline-date">1 Iulie 1866</div>
              <div class="timeline-content" onclick="toggleDetails(this)">
                  <h3>Constituția din 1866</h3>
@@ -539,7 +1111,7 @@
             </div>
         </div>
 
-        <div class="timeline-item">
+         <div class="timeline-item">
              <div class="timeline-date">9 Mai 1877</div>
              <div class="timeline-content" onclick="toggleDetails(this)">
                  <h3>Declarația de Independență</h3>
@@ -550,6 +1122,19 @@
                  <p><em>(Sursa: Context din 7.RomaniaSiConcertulEuropean.docx)</em></p>
              </div>
         </div>
+
+         <div class="timeline-item">
+            <div class="timeline-date">1977</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Disidența lui Paul Goma</h3>
+                 <p>Scriitorul inițiază o mișcare de solidaritate cu Carta 77, criticând regimul.</p>
+            </div>
+            <div class="details">
+                 <p>Scriitorul Paul Goma a inițiat o mișcare de susținere în România a grupului dizident cehoslovac Carta 77, publicând o scrisoare deschisă prin care critica încălcările drepturilor omului de către regimul Ceaușescu. A strâns un număr de semnături de adeziune, dar mișcarea a fost rapid reprimată de Securitate, iar Goma a fost arestat și ulterior forțat să emigreze.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
+             </div>
+        </div>
+
 
          <div class="timeline-item">
              <div class="timeline-date">~1878-1879</div>
@@ -572,6 +1157,18 @@
             <div class="details">
                  <p>După proclamarea Regatului în 1881, Constituția a fost revizuită în 1884 pentru a include oficial titlul de "Regatul României" și pentru a opera unele modificări legate de sistemul electoral (reducerea numărului de colegii electorale) și organizarea Senatului.</p>
                   <p><em>(Sursa: 5.Constitutiile.docx)</em></p>
+             </div>
+        </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">Anii 1980</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Intensificarea Disidenței Intelectuale</h3>
+                 <p>Proteste ale unor intelectuali împotriva regimului Ceaușescu.</p>
+             </div>
+             <div class="details">
+                 <p>În anii '80, pe fondul înrăutățirii condițiilor de viață și a accentuării cultului personalității, disidența intelectualilor s-a intensificat. Figuri precum Doina Cornea, Ana Blandiana, Mircea Dinescu, Dan Petrescu, Gabriel Andreescu au protestat public prin scrisori deschise trimise posturilor de radio occidentale (Europa Liberă, BBC, Vocea Americii), critici directe sau acțiuni simbolice împotriva regimului comunist.</p>
+                 <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
              </div>
         </div>
 
@@ -634,6 +1231,19 @@
                  <p><em>(Sursa: 4.StatulRomanModern.docx)</em></p>
             </div>
         </div>
+
+         <div class="timeline-item">
+             <div class="timeline-date">Sec XX</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Emergența Socialismului / Social-Democrației</h3>
+                 <p>Ideologie axată pe justiție socială și drepturile muncitorilor.</p>
+            </div>
+             <div class="details">
+                 <p>Socialismul a apărut ca o critică la adresa inegalităților generate de capitalismul industrial. Variantele sale includ social-democrația (care acceptă cadrul democratic, pluripartidismul, votul universal și urmărește reforme sociale, protecția salariaților, redistribuirea veniturilor) și comunismul (care viza revoluția, dictatura proletariatului și proprietatea colectivă). În România, mișcarea socialistă a dus la crearea Partidului Social-Democrat.</p>
+                 <p><em>(Sursa: 6.IntreDemocratieSiTotaliarism.docx)</em></p>
+             </div>
+        </div>
+
 
         <div class="timeline-item">
              <div class="timeline-date">1923</div>
@@ -906,10 +1516,22 @@
                  <p>FSN emite decretul-lege pentru revenirea la sistemul multipartit.</p>
              </div>
              <div class="details">
-                 <p>Consiliul Frontului Salvării Naționale (CFSN) emite Decretul-Lege nr. 8 privind înregistrarea și funcționarea partidelor politice, abrogând prevederea constituțională referitoare la rolul conducător al Partidului Comunist și permițând oficial revenirea la pluripartidism. Aceasta a deschis calea pentru reconstrucția democratică a țării, prin reapariția partidelor istorice (PNL, PNȚCD) și înființarea altor noi formațiuni politice.</p>
+                 <p>Consiliul Frontului Salvării Naționale (CFSN) emite Decretul-Lege nr. 8 privind înregistrarea și funcționarea partidelor politice, abrogând prevederea constituțională referitoare la rolul conducător al Partidului Comunist și permițând oficial revenirea la pluripartidism. Aceasta a deschis calea pentru reconstrucția democratică a țării, prin reapariția partidelor istorice (PNL, PNȚCD), transformarea FSN în partid politic și înființarea altor noi formațiuni politice.</p>
                  <p><em>(Sursa: 8.RomaniaPostbelica.docx)</em></p>
             </div>
         </div>
+
+        <div class="timeline-item">
+             <div class="timeline-date">1991</div>
+             <div class="timeline-content" onclick="toggleDetails(this)">
+                 <h3>Adoptarea Constituției post-comuniste</h3>
+                 <p>Noua lege fundamentală a României este adoptată prin referendum.</p>
+             </div>
+             <div class="details">
+                 <p>Constituția adoptată prin referendum în 1991 (și revizuită ulterior în 2003) a pus bazele noului regim democratic din România. Ea consacră principiul separației puterilor în stat, pluripartidismul, drepturile și libertățile fundamentale ale cetățenilor, economia de piață și stabilește forma de guvernământ republicană (semi-prezidențială). A reprezentat un pas esențial în tranziția de la totalitarism la democrație.</p>
+                 <p><em>(Sursa: Context din 8.RomaniaPostbelica.docx și 5.Constitutiile.docx)</em></p>
+             </div>
+         </div>
 
         </div> <script>
         function toggleDetails(element) {

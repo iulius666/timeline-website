@@ -3,322 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioMaster | Quiz Complet Biologie Animală</title>
+    <title>BioMaster Pro | Premium Edition</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4776E6;
-            --secondary: #8E54E9;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --bg: #f8f9fa;
-            --text: #2d3436;
+            --primary: #4776E6; --secondary: #8E54E9; --success: #2ecc71; --danger: #e74c3c;
+            --dark: #2d3436; --light: #ffffff; --gradient: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
-            color: var(--text);
+            padding: 15px;
+            box-sizing: border-box;
+            color: var(--dark);
         }
 
-        .quiz-container {
-            background: white;
-            width: 95%;
-            max-width: 700px;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            position: relative;
-        }
-
-        .progress-container {
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
             width: 100%;
-            height: 10px;
-            background: #eee;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        #progress-bar {
-            height: 100%;
-            background: var(--success);
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.4s ease;
-        }
+        .progress-wrapper { margin-bottom: 30px; }
+        .progress-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: var(--primary); }
+        .progress-bar-bg { background: #eee; height: 12px; border-radius: 10px; overflow: hidden; }
+        #progress-fill { background: var(--gradient); height: 100%; width: 0%; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .question-box { display: none; }
-        .question-box.active { display: block; animation: fadeIn 0.4s ease; }
+        .question-box.active { display: block; animation: slideIn 0.4s ease-out; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        .q-text {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            display: block;
-            color: var(--primary);
-        }
+        .q-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: var(--dark); line-height: 1.4; }
 
         .option-label {
-            display: flex;
-            align-items: center;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 2px solid #f1f1f1;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
+            display: flex; align-items: center; padding: 18px; margin-bottom: 15px;
+            border: 2px solid #e0e0e0; border-radius: 15px; cursor: pointer;
+            transition: all 0.2s ease; font-weight: 500;
         }
+        .option-label:hover { border-color: var(--primary); background: rgba(71, 118, 230, 0.05); }
+        
+        input[type="checkbox"] { margin-right: 15px; width: 22px; height: 22px; accent-color: var(--primary); }
 
-        .option-label:hover { background: #f8faff; border-color: #ddd; }
+        .correct-anim { border-color: var(--success) !important; background: #eafff2 !important; color: var(--success); box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2); }
+        .wrong-anim { border-color: var(--danger) !important; background: #fff0f0 !important; color: var(--danger); }
 
-        /* Clase Feedback */
-        .correct-feedback { border-color: var(--success) !important; background: #eafff2 !important; color: var(--success); font-weight: bold; }
-        .wrong-feedback { border-color: var(--danger) !important; background: #fff0f0 !important; color: var(--danger); }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            outline: none;
+        .feedback-message {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            padding: 15px 30px; border-radius: 50px; color: white; font-weight: 700;
+            z-index: 1000; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: popUp 0.3s ease;
         }
+        @keyframes popUp { from { top: -50px; } to { top: 20px; } }
 
-        .nav-btns {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+        input[type="text"] { width: 100%; padding: 18px; border: 2px solid #ddd; border-radius: 15px; font-size: 1.1rem; outline: none; transition: 0.3s; }
+        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(71, 118, 230, 0.2); }
+
+        #next-btn {
+            width: 100%; padding: 20px; border: none; border-radius: 15px;
+            background: var(--gradient); color: white; font-size: 1.2rem; font-weight: 700;
+            cursor: pointer; margin-top: 20px; transition: 0.3s;
         }
-
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #next-btn { background: var(--primary); color: white; }
-        #next-btn:disabled { background: #ccc; cursor: not-allowed; }
+        #next-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(71, 118, 230, 0.4); }
+        #next-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
         #result-screen { text-align: center; display: none; }
-        .score-circle {
-            width: 150px; height: 150px; border-radius: 50%; border: 10px solid var(--success);
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            font-size: 32px; font-weight: bold;
-        }
+        .final-score { font-size: 4rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="quiz-container">
-    <div class="progress-container"><div id="progress-bar"></div></div>
-    
-    <div id="quiz-content">
-        <h2 id="question-count" style="text-align:center; color: #777; font-size: 16px;">Întrebarea 1/90</h2>
-        <div id="questions-wrapper"></div>
+<div id="toast" class="feedback-message"></div>
 
-        <div class="nav-btns">
-            <button id="prev-btn" onclick="changeStep(-1)" style="background:#eee; visibility: hidden;">Înapoi</button>
-            <button id="next-btn" onclick="validateStep()">Verifică & Înainte</button>
+<div class="quiz-card">
+    <div class="progress-wrapper">
+        <div class="progress-info">
+            <span id="q-label">Întrebarea 1/90</span>
+            <span id="q-percent">0%</span>
         </div>
+        <div class="progress-bar-bg"><div id="progress-fill"></div></div>
+    </div>
+
+    <div id="main-ui">
+        <div id="wrapper"></div>
+        <button id="next-btn" onclick="processStep()">Verifică răspunsul</button>
     </div>
 
     <div id="result-screen">
-        <h2>Examen Finalizat!</h2>
-        <div class="score-circle" id="score-display">0%</div>
-        <p id="feedback-info"></p>
-        <button onclick="location.reload()" style="background: var(--primary); color:white;">Reia Quiz-ul</button>
+        <i class="fas fa-trophy" style="font-size: 80px; color: #f1c40f;"></i>
+        <h2>Felicitări! Ai terminat!</h2>
+        <div class="final-score" id="score-val">0%</div>
+        <p id="stats-text" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+        <button onclick="location.reload()" class="btn" style="background: var(--gradient); color:white; border:none; padding:15px 40px; border-radius:15px; cursor:pointer; font-weight:700;">Începe din nou</button>
     </div>
 </div>
 
 <script>
+const goodVibes = ["Bravo! Ești genial!", "Excelent! Tine-o tot așa!", "Ești pe drumul cel bun!", "Wow! Răspuns perfect!", "Superb! Continuă în acest ritm!", "Te iubesc, Oana!"];
+const keepGoing = ["Nu-i nimic, se mai întâmplă!", "Capul sus, poți merge mai departe!", "E ok, o să faci corect la următoarea!", "Înveți din greșeli, continuă!", "Nu te opri aici, Oana!", "Mergi înainte, vei reuși!"];
+
 const quizData = [
-    { n: 1, q: "Noțiunea de sporozoar implică termenul de:", type: "choice", options: ["a. endoparazit", "b. animal cu organite celulare reduse", "c. individ care trece prin stadiul de spor"], a: "c" },
-    { n: 2, q: "Lipitoarea Hirudo medicinalis are cel puțin două adaptări la viața parazitară:", type: "choice", options: ["a. prezintă scolex", "b. gură cu dinți", "c. stomac cu diverticule"], a: "b" },
-    { n: 3, q: "Punga cu cerneală ca glandă anexă a rectului o întâlnim la:", type: "choice", options: ["a. melci", "b. lamelibranhiate", "c. cefalopode"], a: "c" },
-    { n: 4, q: "Trichinella spiralis este:", type: "choice", options: ["a. vierme lat", "b. nematod", "c. anelid"], a: "b" },
-    { n: 5, q: "Nematodele au:", type: "choice", options: ["a. un ovar, două testicule", "b. două testicule, două ovare", "c. un testicul, două ovare"], a: "c" },
-    { n: 6, q: "Care dintre speciile următoare sunt vivipare:", type: "choice", options: ["a. Ascaris lumbricoides", "b. Trichinella spiralis", "c. Enterobius vermicularis"], a: "b" },
-    { n: 7, q: "Cum se numesc celulele pigmentare la cefalopode?", type: "text", a: "cromatofori" },
-    { n: 8, q: "Unde apare pentru prima dată digestia extracelulară la animale?", type: "text", a: "hydrozoa" },
-    { n: 9, q: "Ciclul de dezvoltare al sporozoarelor implică sporul CU EXCEPȚIA:", type: "choice", options: ["a. coccidiilor", "b. sarcosporidiilor", "c. hemosporidiilor"], a: "c" },
-    { n: 10, q: "Spiculii copulatori îi întâlnim la:", type: "choice", options: ["a. femele", "b. masculi", "c. ambele"], a: "b" },
-    { n: 11, q: "Hepatopancreasul apare pentru prima dată la:", type: "choice", options: ["a. nematode", "b. gasteropode", "c. anelide"], a: "b" },
-    { n: 12, q: "Termenul de ropalii apare la:", type: "choice", options: ["a. scifozoare", "b. hidrozoare", "c. ctenofore"], a: "a" },
-    { n: 13, q: "Corpul la cestode este alcătuit din:", type: "choice", options: ["a. proglote", "b. metamere", "c. segmente inelare"], a: "a" },
-    { n: 14, q: "La cefalopode ganglionii cerebroizi se găsesc în:", type: "choice", options: ["a. zona cefalică", "b. craniu cartilaginos", "c. supraesofagian"], a: "b" },
-    { n: 15, q: "Indivizii cu rol de apărare în colonia hidrozoarelor:", type: "choice", options: ["a. nectozoizi", "b. dactilozoizi", "c. gonozoizi"], a: "b" },
-    { n: 16, q: "Reprezentanții Clasei Anthozoa se găsesc sub formă de:", type: "choice", options: ["a. polip", "b. meduză", "c. colonial"], a: "c" },
-    { n: 17, q: "Cum se numesc orificiile respiratorii la insecte?", type: "text", a: "stigme" },
-    { n: 18, q: "Simbioza la protozoare poate fi:", type: "choice", options: ["a. obligatorie", "b. facultativă", "c. nu există"], a: "b" },
-    { n: 19, q: "Euglena este un protozoar autotrof:", type: "choice", options: ["a. producător primar", "b. consumator primar", "c. predator"], a: "a" },
-    { n: 20, q: "Unde se realizează fecundarea la spongieri?", type: "choice", options: ["a. mezoglee", "b. pinacocite", "c. endoderm"], a: "a" },
-    { n: 21, q: "Viermii cilindrici sunt:", type: "choice", options: ["a. metazoare tridermice celomate", "b. metazoare didermice", "c. metazoare triploblastice acelomate"], a: "a" },
-    { n: 22, q: "Dezvoltarea la oligochete se face:", type: "choice", options: ["a. prin metamorfoză", "b. fără metamorfoză într-un cocon", "c. prin metamorfoză într-un cocon"], a: "c" },
-    { n: 23, q: "Definiți noțiunea de gemule la spongieri:", type: "text", a: "inmugurit" },
-    { n: 24, q: "Extremitatea cu ventuze și cârlige la cestode:", type: "text", a: "scolex" },
-    { n: 25, q: "Sângele anelidelor circulă:", type: "choice", options: ["a. vas dorsal", "b. vas ventral", "c. sistem închis", "d. sistem deschis"], a: "c" },
-    { n: 26, q: "Dendrocoelum lacteum face parte din:", type: "choice", options: ["a. Turbelariata", "b. Trematoda", "c. Plathelminthes"], a: "b" },
-    { n: 27, q: "Insectele respiră:", type: "choice", options: ["a. traheal", "b. traheal și pulmonar", "c. pulmonar"], a: "a" },
-    { n: 28, q: "Termenul de craspedote apare la:", type: "text", a: "hidromedure" },
-    { n: 29, q: "Peretele corpului la spongieri este alcătuit din:", type: "choice", options: ["a. pinocite și cnidoblaste", "b. coanocite și coloblaste", "c. pinocite și coanocite"], a: "c" },
-    { n: 30, q: "Cochilia la Limax este:", type: "choice", options: ["a. univalvă", "b. spiralată", "c. redusă dorsal"], a: "c" },
-    { n: 31, q: "Membrii Clasei Lamelibranchiata se mai numesc:", type: "choice", options: ["a. prosobranchiate", "b. bivalve", "c. pulmonate"], a: "b" },
-    { n: 32, q: "Respirația la moluște se face:", type: "choice", options: ["a. branhial", "b. branhial și pulmonar"], a: "a" },
-    { n: 33, q: "Ce sunt tuburile Malpighi?", type: "text", a: "excretor" },
-    { n: 34, q: "Insectele holometabole au metamorfoză:", type: "choice", options: ["a. incompletă", "b. completă", "c. fără"], a: "b" },
-    { n: 35, q: "Ce tentacul se transformă în organ copulator la cefalopode?", type: "text", a: "hectocotil" },
-    { n: 36, q: "Mollusca care pot produce perle:", type: "choice", options: ["a. Prosobranchia", "b. Tetrabranchia", "c. Lamelibranchiata"], a: "c" },
-    { n: 37, q: "Pedipalpii la Acarina sunt:", type: "choice", options: ["a. sfărâmat", "b. rostru ascuțit", "c. mandibule"], a: "b" },
-    { n: 38, q: "Căpușele ixodide fac parte din:", type: "choice", options: ["a. Acarina", "b. Araneidae", "c. Mandibulata"], a: "a" },
-    { n: 39, q: "Definiți apterigotele:", type: "text", a: "fara aripi" },
-    { n: 40, q: "Aripi la insecte:", type: "choice", options: ["a. membranoase", "b. hemielitre", "c. elitre"], a: "a" },
-    { n: 41, q: "Unde este secretată spongina?", type: "text", a: "mezoglee" },
-    { n: 42, q: "Rolul organelor cordotonale la insecte:", type: "text", a: "senzorial" },
-    { n: 43, q: "Fecundarea la lamelibranhiate are loc în:", type: "choice", options: ["a. cavitatea paleală", "b. mezoglee", "c. lamele branhiale externe"], a: "c" },
-    { n: 44, q: "Clasa Asteroidea:", type: "choice", options: ["a. Echinodermata", "b. Eleutherozoa", "c. Pelmatozoa"], a: "b" },
-    { n: 45, q: "Ce sunt ostiolele?", type: "text", a: "orificii" },
-    { n: 46, q: "Ascidiile sunt reprezentanții:", type: "choice", options: ["a. Urochordata", "b. Cephalochordata", "c. niciuna"], a: "b" },
-    { n: 47, q: "Fanerele sunt caracterizate prin:", type: "text", a: "keratinizare" },
-    { n: 48, q: "Arhencefalul este format din:", type: "choice", options: ["a. telencefal, diencefal, mielencefal", "b. metencefal și măduvă", "c. toate 5 veziculele"], a: "a" },
-    { n: 49, q: "Scheletul la Chondrichthyes:", type: "choice", options: ["a. osos", "b. cartilaginos", "c. poros"], a: "b" },
-    { n: 50, q: "Tip de solz la pești:", type: "text", a: "placoizi" },
-    { n: 51, q: "Linia laterală are rol în:", type: "choice", options: ["a. direcție și presiune", "b. senzorial", "c. salinitate, vibrații, direcție"], a: "c" },
-    { n: 52, q: "Urechea internă apare la:", type: "text", a: "pesti" },
-    { n: 53, q: "Peștii fizostomi au vezica legată de:", type: "choice", options: ["a. esofag", "b. deuterostomi", "c. planctofagi"], a: "a" },
-    { n: 54, q: "Canalul lui Wolff la pești este:", type: "text", a: "evacuator" },
-    { n: 55, q: "Holobiotic:", type: "text", a: "metamorfoza completa" },
-    { n: 56, q: "Reptilele se împart în (alege una):", type: "choice", options: ["a. Chelonieni", "b. Ofidieni", "c. Crocodilieni", "d. Saurieni"], a: "a" },
-    { n: 57, q: "Celulele cu conuri la păsări:", type: "choice", options: ["a. nocturnă", "b. diurnă", "c. olfactivă"], a: "b" },
-    { n: 58, q: "Vibrizele sunt:", type: "choice", options: ["a. glande", "b. peri tactili buza sup.", "c. ochi"], a: "b" },
-    { n: 59, q: "Respirația la amfibieni este:", type: "text", a: "cutanata" },
-    { n: 60, q: "Pigostilul:", type: "choice", options: ["a. ultimele vertebre codale", "b. lombare", "c. stern"], a: "a" },
-    { n: 61, q: "Tipul plantigrad:", type: "choice", options: ["a. om", "b. urs", "c. câine", "d. leu"], a: "a" },
-    { n: 62, q: "Dentiția bunodontă:", type: "choice", options: ["a. carnivor", "b. omnivor", "c. ierbivor"], a: "a" },
-    { n: 63, q: "Ordinul Chelonieni:", type: "choice", options: ["a. țestoase", "b. șopârle", "c. acvatice"], a: "a" },
-    { n: 64, q: "Modificare viață terestră:", type: "text", a: "piele" },
-    { n: 65, q: "Penele de contur:", type: "choice", options: ["a. remige și tectrice", "b. remige și rectrice", "c. puf"], a: "a" },
-    { n: 66, q: "Receptorii Corti:", type: "choice", options: ["a. echilibru", "b. auz", "c. vedere"], a: "b" },
-    { n: 67, q: "Mamiferele după dezvoltare:", type: "text", a: "prototerieni" },
-    { n: 68, q: "Fose nazale absente la:", type: "text", a: "pesti" },
-    { n: 69, q: "Subclasa Prototheria:", type: "choice", options: ["a. primitive", "b. vivipare aplacentare", "c. placentare"], a: "a" },
-    { n: 70, q: "Corp cu piele uscată și solzoasă:", type: "choice", options: ["a. tip șopârlă", "b. tip șarpe", "c. amfibieni"], a: "a" },
-    { n: 71, q: "Marsupialele sunt:", type: "choice", options: ["a. Eutheria", "b. Metatheria", "c. Prototheria"], a: "b" },
-    { n: 72, q: "Diamantul la pui:", type: "text", a: "sparga coaja" },
-    { n: 73, q: "Stomacul glandular secretă:", type: "choice", options: ["a. pepsină", "b. pepsină și acid", "c. emulsie"], a: "b" },
-    { n: 74, q: "Circumvoluțiunile cerebelului apar la:", type: "choice", options: ["a. reptile", "b. păsări", "c. mamifere"], a: "a" },
-    { n: 75, q: "Ureche externă la:", type: "choice", options: ["a. mamifere", "b. pești", "c. păsări"], a: "c" },
-    { n: 76, q: "Amfibienii au emisfere:", type: "choice", options: ["a. individualizate", "b. scoarță dezvoltată", "c. început scoarță"], a: "a" },
-    { n: 77, q: "Glanda uropigenă unge:", type: "text", a: "penele" },
-    { n: 78, q: "Canalele Muller la amfibieni:", type: "choice", options: ["a. oviducte", "b. ureter", "c. ambele"], a: "a" },
-    { n: 79, q: "Păsări fără carenă:", type: "text", a: "acarinate" },
-    { n: 80, q: "Vechii amfibieni:", type: "choice", options: ["a. salamandre", "b. stegocefali", "c. apode"], a: "b" },
-    { n: 81, q: "Ramfoteca formează:", type: "text", a: "ciocuri" },
-    { n: 82, q: "Inima tetracamerală prima dată la:", type: "choice", options: ["a. păsări", "b. crocodili", "c. mamifere"], a: "b" },
-    { n: 83, q: "Laptele secretat de:", type: "choice", options: ["a. glande cutanate", "b. mamare acinoase", "c. prolactină"], a: "b" },
-    { n: 84, q: "Coarne pline la:", type: "choice", options: ["a. rinocer", "b. bovine", "c. cervide"], a: "c" },
-    { n: 85, q: "Dentiția lofodontă:", type: "choice", options: ["a. fructe", "b. exclusiv ierbivor", "c. omnivor"], a: "b" },
-    { n: 86, q: "Testicule abdominale la:", type: "choice", options: ["a. câine", "b. elefant și cetacee", "c. rozătoare"], a: "b" },
-    { n: 87, q: "Sirinxul produce:", type: "text", a: "sunete" },
-    { n: 88, q: "Prototheria sunt:", type: "choice", options: ["a. marsupiale", "b. ovipare", "c. placentare"], a: "b" },
-    { n: 89, q: "La pești sunt dezvoltați lobii:", type: "choice", options: ["a. olfactivi", "b. bigemeni", "c. cerebelul"], a: "a" },
-    { n: 90, q: "Patagium reprezintă o:", type: "text", a: "pielita" }
+    { n: 1, q: "Noțiunea de sporozoar implică termenul de:", type: "choice", options: ["a. endoparazit", "b. animal cu organite celulare reduse", "c. individ care trece prin stadiul de spor"], a: ["b", "c"] },
+    { n: 2, q: "Lipitoarea Hirudo medicinalis are adaptări la viața parazitară:", type: "choice", options: ["a. prezintă scolex", "b. gură cu dinți", "c. stomac cu diverticule"], a: ["b", "c"] },
+    { n: 3, q: "Punga cu cerneală o întâlnim la:", type: "choice", options: ["a. melci", "b. lamelibranhiate", "c. cefalopode"], a: ["c"] },
+    { n: 4, q: "Trichinella spiralis este:", type: "choice", options: ["a. vierme lat", "b. nematod", "c. anelid"], a: ["b"] },
+    { n: 5, q: "Nematodele au:", type: "choice", options: ["a. un ovar, două testicule", "b. două testicule, două ovare", "c. un testicul, două ovare"], a: ["c"] },
+    { n: 6, q: "Care dintre speciile următoare sunt vivipare:", type: "choice", options: ["a. Ascaris lumbricoides", "b. Trichinella spiralis", "c. Enterobius vermicularis"], a: ["b"] },
+    { n: 7, q: "Cum se numesc celulele pigmentare la cefalopode?", type: "text", a: ["cromatofori"] },
+    { n: 8, q: "Unde apare digestia extracelulară și cum se realizează?", type: "text", a: ["hydrozoa"] },
+    { n: 9, q: "Ciclul sporozoarelor implică sporul CU EXCEPȚIA:", type: "choice", options: ["a. coccidiilor", "b. sarcosporidiilor", "c. hemosporidiilor"], a: ["c"] },
+    { n: 10, q: "Spiculii copulatori îi întâlnim la:", type: "choice", options: ["a. femele", "b. masculi", "c. ambele"], a: ["b"] },
+    { n: 11, q: "Hepatopancreasul apare prima dată la:", type: "choice", options: ["a. nematode", "b. gasteropode", "c. anelide"], a: ["b"] },
+    { n: 12, q: "Termenul de ropalii apare la:", type: "choice", options: ["a. scifozoare", "b. hidrozoare", "c. ctenofore"], a: ["a"] },
+    { n: 13, q: "Corpul la cestode este alcătuit din:", type: "choice", options: ["a. proglote", "b. metamere", "c. segmente"], a: ["a"] },
+    { n: 14, q: "La cefalopode ganglionii cerebroizi se găsesc în:", type: "choice", options: ["a. zona cefalică", "b. craniu cartilaginos", "c. supraesofagian"], a: ["b"] },
+    { n: 15, q: "Indivizii cu rol de apărare în colonie:", type: "choice", options: ["a. nectozoizi", "b. dactilozoizi", "c. gonozoizi"], a: ["b"] },
+    { n: 16, q: "Reprezentanții Clasei Anthozoa se găsesc sub formă de:", type: "choice", options: ["a. polip", "b. meduză", "c. colonial"], a: ["c"] },
+    { n: 17, q: "Cum se numesc orificiile respiratorii la insecte?", type: "text", a: ["stigm"] },
+    { n: 18, q: "Simbioza la protozoare poate fi:", type: "choice", options: ["a. obligatorie", "b. facultativă", "c. nu există"], a: ["b"] },
+    { n: 19, q: "Euglena este un protozoar autotrof:", type: "choice", options: ["a. producător primar", "b. consumator primar", "c. predator"], a: ["a"] },
+    { n: 20, q: "Fecundarea la spongieri are loc în:", type: "choice", options: ["a. mezoglee", "b. pinacocite", "c. endoderm"], a: ["a"] },
+    { n: 21, q: "Viermii cilindrici sunt:", type: "choice", options: ["a. metazoare tridermice celomate", "b. metazoare didermice", "c. metazoare triploblastice acelomate"], a: ["a"] },
+    { n: 22, q: "Dezvoltarea la oligochete:", type: "choice", options: ["a. metamorfoză", "b. fără metamorfoză", "c. metamorfoză în cocon"], a: ["c"] },
+    { n: 23, q: "Gemulele la spongieri sunt organ de:", type: "text", a: ["inmultire", "asexuat", "inmugurat"] },
+    { n: 24, q: "Extremitatea cu ventuze la cestode:", type: "text", a: ["scolex"] },
+    { n: 25, q: "Sângele anelidelor circulă prin:", type: "choice", options: ["a. vas dorsal", "b. vas ventral", "c. sistem închis", "d. sistem deschis"], a: ["c"] },
+    { n: 26, q: "Dendrocoelum lacteum:", type: "choice", options: ["a. Turbelariata", "b. Trematoda", "c. Plathelminthes"], a: ["b"] },
+    { n: 27, q: "Insectele respiră:", type: "choice", options: ["a. traheal", "b. traheal și pulmonar", "c. pulmonar"], a: ["a"] },
+    { n: 28, q: "Craspedote întâlnim la:", type: "text", a: ["hidromedure"] },
+    { n: 29, q: "Peretele la spongieri:", type: "choice", options: ["a. pinacocite", "b. cnidoblaste", "c. coanocite"], a: ["c"] },
+    { n: 30, q: "Cochilia la Limax:", type: "choice", options: ["a. univalvă", "b. spiralată", "c. redusă"], a: ["a", "b", "c"] },
+    { n: 31, q: "Lamelibranhiatele se mai numesc:", type: "choice", options: ["a. prosobranchiate", "b. bivalve", "c. pulmonate"], a: ["b"] },
+    { n: 32, q: "Respirația la moluște:", type: "choice", options: ["a. branhial", "b. branhial și pulmonar"], a: ["a"] },
+    { n: 33, q: "Ce sunt tuburile Malpighi?", type: "text", a: ["excretor"] },
+    { n: 34, q: "Insectele holometabole:", type: "choice", options: ["a. metamorfoză incompletă", "b. metamorfoză completă", "c. fără"], a: ["b"] },
+    { n: 35, q: "Tentaculul-organ copulator la cefalopode:", type: "text", a: ["hectocotil"] },
+    { n: 36, q: "Mollusca ce produc perle:", type: "choice", options: ["a. Prosobranchia", "b. Tetrabranchia", "c. Lamelibranchiata"], a: ["c"] },
+    { n: 37, q: "Pedipalpii la Acarina:", type: "choice", options: ["a. sfărâmat", "b. rostru", "c. mandibule"], a: ["b"] },
+    { n: 38, q: "Căpușele ixodide:", type: "choice", options: ["a. Acarina", "b. Araneidae", "c. Mandibulata"], a: ["a"] },
+    { n: 39, q: "Definiți apterigotele:", type: "text", a: ["fara aripi"] },
+    { n: 40, q: "Tipuri de aripi la insecte:", type: "choice", options: ["a. membranoase", "b. hemielitre", "c. elitre"], a: ["a", "c"] },
+    { n: 41, q: "Unde este secretată spongina?", type: "text", a: ["mezoglee"] },
+    { n: 42, q: "Rolul organelor cordotonale:", type: "text", a: ["auz", "senzorial"] },
+    { n: 43, q: "Fecundarea la lamelibranhiate:", type: "choice", options: ["a. cavitate paleală", "b. mezoglee", "c. lamele branhiale externe"], a: ["a", "c"] },
+    { n: 44, q: "Asteroidea face parte din:", type: "choice", options: ["a. Echinodermata", "b. Eleutherozoa", "c. Pelmatozoa"], a: ["a"] },
+    { n: 45, q: "Ce sunt ostiolele?", type: "text", a: ["orificii inima"] },
+    { n: 46, q: "Ascidiile sunt reprezentanții:", type: "choice", options: ["a. Urochordata", "b. Cephalochordata", "c. Niciuna"], a: ["b"] },
+    { n: 47, q: "Fanerele sunt caracterizate prin:", type: "text", a: ["keratinizare"] },
+    { n: 48, q: "Arhencefalul format din:", type: "choice", options: ["a. telencefal, diencefal", "b. metencefal", "c. telencefal, diencefal, mezencefal"], a: ["c"] },
+    { n: 49, q: "Scheletul la Chondrichthyes:", type: "choice", options: ["a. osos", "b. cartilaginos", "c. poros"], a: ["b"] },
+    { n: 50, q: "Solzi la pești:", type: "text", a: ["placoizi", "cicloizi", "ctenoizi"] },
+    { n: 51, q: "Linia laterală are rol în:", type: "choice", options: ["a. direcție", "b. senzorial", "c. vibrații"], a: ["c"] },
+    { n: 52, q: "Urechea internă apare la:", type: "text", a: ["pesti"] },
+    { n: 53, q: "Peștii fizostomi au vezica legată de:", type: "choice", options: ["a. esofag", "b. deuterostomi", "c. planctofagi"], a: ["a"] },
+    { n: 54, q: "Ce este canalul lui Wolff?", type: "text", a: ["urina", "pesti"] },
+    { n: 55, q: "Definiți holobiotic:", type: "text", a: ["metamorfoza completa"] },
+    { n: 56, q: "Reptilele se împart în:", type: "choice", options: ["a. Chelonieni", "b. Ofidieni", "c. Crocodilieni", "d. Saurieni"], a: ["a", "b", "c", "d"] },
+    { n: 57, q: "Celulele cu conuri la păsări:", type: "choice", options: ["a. nocturnă", "b. diurnă", "c. olfactivă"], a: ["b"] },
+    { n: 58, q: "Vibrizele sunt:", type: "choice", options: ["a. glande", "b. peri tactili", "c. ochi"], a: ["b"] },
+    { n: 59, q: "Respirația principală la amfibieni:", type: "text", a: ["cutanata", "piele"] },
+    { n: 60, q: "Pigostilul:", type: "choice", options: ["a. ultimele vertebre codale", "b. lombare", "c. stern"], a: ["a"] },
+    { n: 61, q: "Tipul plantigrad:", type: "choice", options: ["a. om", "b. urs", "c. câine"], a: ["a", "b"] },
+    { n: 62, q: "Dentiția bunodontă:", type: "choice", options: ["a. carnivor", "b. omnivor", "c. ierbivor"], a: ["a"] },
+    { n: 63, q: "Ordinul Chelonieni:", type: "choice", options: ["a. țestoase", "b. șopârle", "c. acvatice"], a: ["a", "c"] },
+    { n: 64, q: "Modificare piele viață terestră:", type: "text", a: ["strat cornos"] },
+    { n: 65, q: "Penele de contur:", type: "choice", options: ["a. remige", "b. rectrice", "c. puf"], a: ["a", "b"] },
+    { n: 66, q: "Receptorii Corti:", type: "choice", options: ["a. echilibru", "b. auz", "c. vedere"], a: ["b"] },
+    { n: 67, q: "Mamiferele se împart în:", type: "text", a: ["prototerieni", "metaterieni", "euterieni"] },
+    { n: 68, q: "Fose nazale absente la:", type: "text", a: ["pesti"] },
+    { n: 69, q: "Subclasa Prototheria:", type: "choice", options: ["a. primitive", "b. vivipare", "c. placentare"], a: ["a"] },
+    { n: 70, q: "Corp cu piele uscată și solzoasă:", type: "choice", options: ["a. șopârlă", "b. șarpe", "c. amfibieni"], a: ["a", "b"] },
+    { n: 71, q: "Marsupialele sunt:", type: "choice", options: ["a. Eutheria", "b. Metatheria", "c. Prototheria"], a: ["b"] },
+    { n: 72, q: "Diamantul ajută la:", type: "text", a: ["spargerea oului"] },
+    { n: 73, q: "Stomacul glandular secretă:", type: "choice", options: ["a. pepsină", "b. acid", "c. emulsie"], a: ["b"] },
+    { n: 74, q: "Circumvoluțiuni cerebeloase:", type: "choice", options: ["a. reptile", "b. păsări", "c. mamifere"], a: ["a"] },
+    { n: 75, q: "Ureche externă la:", type: "choice", options: ["a. mamifere", "b. pești", "c. păsări"], a: ["c"] },
+    { n: 76, q: "La amfibieni sistemul nervos:", type: "choice", options: ["a. emisfere", "b. scoarță", "c. început scoarță"], a: ["a", "c"] },
+    { n: 77, q: "Glanda uropigenă unge:", type: "text", a: ["penele"] },
+    { n: 78, q: "Canalele Muller devin la femele:", type: "choice", options: ["a. oviducte", "b. uretere", "c. vezică"], a: ["a"] },
+    { n: 79, q: "Păsări fără carenă:", type: "text", a: ["acarinate"] },
+    { n: 80, q: "Vechii amfibieni:", type: "choice", options: ["a. salamandre", "b. stegocefali", "c. apode"], a: ["b"] },
+    { n: 81, q: "Ramfoteca formează:", type: "text", a: ["ciocul"] },
+    { n: 82, q: "Inima tetracamerală prima dată la:", type: "choice", options: ["a. păsări", "b. crocodili", "c. mamifere"], a: ["b"] },
+    { n: 83, q: "Laptele la mamifere:", type: "choice", options: ["a. glande cutanate", "b. mamare", "c. ambele"], a: ["b"] },
+    { n: 84, q: "Coarne pline și caduce:", type: "choice", options: ["a. rinocer", "b. bovine", "c. cervide"], a: ["c"] },
+    { n: 85, q: "Dentiția lofodontă:", type: "choice", options: ["a. ierbivor", "b. omnivor", "c. ambele"], a: ["a", "b"] },
+    { n: 86, q: "Testicule abdominale la:", type: "choice", options: ["a. câine", "b. elefant", "c. rozătoare"], a: ["b"] },
+    { n: 87, q: "Sirinxul produce:", type: "text", a: ["sunete"] },
+    { n: 88, q: "Prototheria sunt animale:", type: "choice", options: ["a. marsupiale", "b. ovipare", "c. vivipare"], a: ["b"] },
+    { n: 89, q: "La pești sunt dezvoltați lobii:", type: "choice", options: ["a. olfactivi", "b. bigemeni", "c. cerebelul"], a: ["a"] },
+    { n: 90, q: "Patagium reprezintă:", type: "text", a: ["pielita zbor"] }
 ];
 
-let currentStep = 0;
-let score = 0;
+let currentIndex = 0;
+let totalScore = 0;
 
-function initQuiz() {
-    const wrapper = document.getElementById('questions-wrapper');
-    quizData.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = `question-box ${index === 0 ? 'active' : ''}`;
-        div.id = `q-box-${index}`;
-        let content = `<span class="q-text">${item.n}. ${item.q}</span>`;
+function setup() {
+    const wrapper = document.getElementById('wrapper');
+    quizData.forEach((item, i) => {
+        const box = document.createElement('div');
+        box.className = `question-box ${i === 0 ? 'active' : ''}`;
+        box.id = `q-${i}`;
+        let html = `<span class="q-text">${item.n}. ${item.q}</span>`;
         if (item.type === 'choice') {
-            item.options.forEach(opt => {
-                const letter = opt.trim().charAt(0).toLowerCase();
-                content += `<label class="option-label" data-letter="${letter}"><input type="radio" name="q${index}" value="${letter}"> ${opt}</label>`;
+            item.options.forEach(o => {
+                const letter = o.charAt(0);
+                html += `<label class="option-label" data-l="${letter}"><input type="checkbox" value="${letter}"> ${o}</label>`;
             });
         } else {
-            content += `<input type="text" id="text-q${index}" placeholder="Răspunsul tău...">`;
+            html += `<input type="text" id="ans-${i}" placeholder="Scrie răspunsul corect...">`;
         }
-        div.innerHTML = content;
-        wrapper.appendChild(div);
+        box.innerHTML = html;
+        wrapper.appendChild(box);
     });
 }
 
-function validateStep() {
-    const item = quizData[currentStep];
-    const currentBox = document.getElementById(`q-box-${currentStep}`);
-    let isCorrect = false;
+function processStep() {
+    const item = quizData[currentIndex];
+    const box = document.getElementById(`q-${currentIndex}`);
+    let correct = false;
 
     if (item.type === 'choice') {
-        const selected = currentBox.querySelector('input[type="radio"]:checked');
-        if (!selected) { alert("Alege o variantă!"); return; }
+        const selected = Array.from(box.querySelectorAll('input:checked')).map(el => el.value);
+        if (selected.length === 0) return alert("Selectează măcar o variantă!");
         
-        const allLabels = currentBox.querySelectorAll('.option-label');
-        allLabels.forEach(label => {
-            if (label.dataset.letter === item.a) label.classList.add('correct-feedback');
-            if (selected.value === label.dataset.letter && selected.value !== item.a) label.classList.add('wrong-feedback');
+        box.querySelectorAll('.option-label').forEach(l => {
+            const val = l.dataset.l;
+            if (item.a.includes(val)) l.classList.add('correct-anim');
+            else if (selected.includes(val)) l.classList.add('wrong-anim');
         });
-        isCorrect = (selected.value === item.a);
+        correct = (selected.length === item.a.length && selected.every(v => item.a.includes(v)));
     } else {
-        const input = document.getElementById(`text-q${currentStep}`);
-        const val = input.value.toLowerCase().trim();
-        if (!val) { alert("Scrie un răspuns!"); return; }
-        isCorrect = val.includes(item.a.toLowerCase());
-        input.classList.add(isCorrect ? 'correct-feedback' : 'wrong-feedback');
+        const val = document.getElementById(`ans-${currentIndex}`).value.toLowerCase().trim();
+        if (!val) return alert("Te rugăm să răspunzi!");
+        correct = item.a.some(k => val.includes(k.toLowerCase()));
+        document.getElementById(`ans-${currentIndex}`).classList.add(correct ? 'correct-anim' : 'wrong-anim');
     }
 
-    if (isCorrect) score++;
+    if (correct) totalScore++;
+    showToast(correct);
     
     document.getElementById('next-btn').disabled = true;
     setTimeout(() => {
         document.getElementById('next-btn').disabled = false;
-        if (currentStep + 1 < quizData.length) {
-            changeStep(1);
+        if (currentIndex + 1 < quizData.length) {
+            document.getElementById(`q-${currentIndex}`).classList.remove('active');
+            currentIndex++;
+            document.getElementById(`q-${currentIndex}`).classList.add('active');
+            updateUI();
         } else {
-            showResults();
+            finish();
         }
-    }, 1500); // Pauză de 1.5 secunde pentru feedback
+    }, 1800);
 }
 
-function changeStep(dir) {
-    document.getElementById(`q-box-${currentStep}`).classList.remove('active');
-    currentStep += dir;
-    document.getElementById(`q-box-${currentStep}`).classList.add('active');
-    updateUI();
+function showToast(isCorrect) {
+    const toast = document.getElementById('toast');
+    const msg = isCorrect ? goodVibes[Math.floor(Math.random()*goodVibes.length)] : keepGoing[Math.floor(Math.random()*keepGoing.length)];
+    toast.innerText = msg;
+    toast.style.background = isCorrect ? 'var(--success)' : 'var(--danger)';
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 1700);
 }
 
 function updateUI() {
-    document.getElementById('question-count').innerText = `Întrebarea ${currentStep + 1}/${quizData.length}`;
-    document.getElementById('progress-bar').style.width = `${((currentStep + 1) / quizData.length) * 100}%`;
-    document.getElementById('prev-btn').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+    document.getElementById('q-label').innerText = `Întrebarea ${currentIndex + 1}/90`;
+    const p = Math.round(((currentIndex + 1) / quizData.length) * 100);
+    document.getElementById('q-percent').innerText = `${p}%`;
+    document.getElementById('progress-fill').style.width = `${p}%`;
 }
 
-function showResults() {
-    document.getElementById('quiz-content').style.display = 'none';
-    const resScreen = document.getElementById('result-screen');
-    resScreen.style.display = 'block';
-    const finalScore = Math.round((score / quizData.length) * 100);
-    document.getElementById('score-display').innerText = `${finalScore}%`;
-    document.getElementById('feedback-info').innerHTML = `Ai răspuns corect la <b>${score}</b> din <b>${quizData.length}</b> întrebări.`;
+function finish() {
+    document.getElementById('main-ui').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    const final = Math.round((totalScore / quizData.length) * 100);
+    document.getElementById('score-val').innerText = `${final}%`;
+    document.getElementById('stats-text').innerText = `Ai rezolvat corect ${totalScore} din 90 de întrebări!`;
 }
 
-window.onload = initQuiz;
+window.onload = setup;
 </script>
 </body>
-
 </html>
